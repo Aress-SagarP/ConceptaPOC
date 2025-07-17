@@ -336,7 +336,7 @@
 				<version>3.5.1</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
+						<suiteXmlFile>Login_Logout.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin> -->
