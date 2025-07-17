@@ -1,0 +1,2 @@
+Line#,Division,AcctCode,Date Required,Currency,QTY,Product Code,Description,Price,Discount,TaxRate,Nominal code,ProjectCode,CostCode
+1,QA,Test1 ,2025/02/02,USD,5,7,test,10,1,12,N01_31_05_2024_10_11,Aress123 ,SOFT 
