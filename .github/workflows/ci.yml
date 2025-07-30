@@ -54,12 +54,12 @@ jobs:
       if: always()
       shell: pwsh
       env:
-        EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        EMAIL_FROM: ${{ secrets.EMAIL_USERNAME }}
         EMAIL_TO: ${{ secrets.EMAIL_TO }}
         EMAIL_SUBJECT: 'TestNG Report'
         SMTP_SERVER: 'smtp.gmail.com'
         SMTP_PORT: '587'
-        SMTP_USER: ${{ secrets.EMAIL_FROM }}
+        SMTP_USER: ${{ secrets.EMAIL_USERNAME }}
         SMTP_PASS: ${{ secrets.EMAIL_PASSWORD }}
       run: |
         $report = Get-ChildItem -Path downloaded-report/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
