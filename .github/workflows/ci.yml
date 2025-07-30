@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
@@ -24,9 +23,50 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-    - name: Archive TestNG Reports
+    - name: Upload Latest TestNG Report
+      if: always()
+      run: |
+        $report = Get-ChildItem -Path reports/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        if ($null -eq $report) {
+          Write-Error "No HTML report found in reports/ folder."
+          exit 1
+        }
+        echo "Latest report: $($report.Name)"
+        mkdir latest-report
+        Copy-Item $report.FullName -Destination latest-report/
+      shell: pwsh
+
+    - name: Upload latest report artifact
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: testng-reports
-        path: reports/
+        name: latest-testng-report
+        path: latest-report/
+
+    - name: Download artifact
+      if: always()
+      uses: actions/download-artifact@v4
+      with:
+        name: latest-testng-report
+        path: downloaded-report
+
+    - name: Send Email with TestNG Report
+      if: always()
+      shell: pwsh
+      env:
+        EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        EMAIL_SUBJECT: 'TestNG Report'
+        SMTP_SERVER: 'smtp.gmail.com'
+        SMTP_PORT: '587'
+        SMTP_USER: ${{ secrets.EMAIL_FROM }}
+        SMTP_PASS: ${{ secrets.EMAIL_PASSWORD }}
+      run: |
+        $report = Get-ChildItem -Path downloaded-report/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        if ($null -eq $report) {
+          Write-Error "No HTML report found in downloaded-report/ folder."
+          exit 1
+        }
+
+        $credential = New-Object System.Management.Automation.PSCredential($env:SMTP_USER, (ConvertTo-SecureString $env:SMTP_PASS -AsPlainText -Force))
+        Send-MailMessage -From $env:EMAIL_FROM -To $env:EMAIL_TO -Subject $env:EMAIL_SUBJECT -SmtpServer $env:SMTP_SERVER -Port $env:SMTP_PORT -UseSsl -Credential $credential -Attachments $report.FullName -Body "Please find attached the latest TestNG report." -BodyAsHtml
