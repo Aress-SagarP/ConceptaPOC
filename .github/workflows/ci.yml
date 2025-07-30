@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+
     runs-on: windows-latest
 
     steps:
@@ -23,39 +24,9 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-    - name: Get Latest Report File
-      id: get_report
-      shell: pwsh
-      run: |
-        $latestReport = Get-ChildItem -Path reports/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-        if ($null -eq $latestReport) {
-          Write-Error "No HTML report found."
-          exit 1
-        }
-        echo "Latest report found: $($latestReport.FullName)"
-        echo "report_path=$($latestReport.FullName)" >> $env:GITHUB_ENV
-
-    - name: Upload Latest Report Only
+    - name: Archive TestNG Reports
+      if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: latest-testng-report
-        path: ${{ env.report_path }}
-
-    - name: Send Email with Latest Report
-      if: always()
-      shell: pwsh
-      run: |
-        $smtpServer = "smtp.gmail.com"
-        $smtpPort = "587"
-        $from = "${{ secrets.EMAIL_USERNAME }}"
-        $to = "${{ secrets.EMAIL_TO }}"
-        $subject = "TestNG Report from GitHub Actions"
-        $body = "Please find the attached latest TestNG report."
-
-        $report = "${{ env.report_path }}"
-        $securePassword = ConvertTo-SecureString "${{ secrets.EMAIL_PASSWORD }}" -AsPlainText -Force
-        $credential = New-Object System.Management.Automation.PSCredential ($from, $securePassword)
-
-        Send-MailMessage -From $from -To $to -Subject $subject -Body $body `
-          -SmtpServer $smtpServer -Port $smtpPort -UseSsl `
-          -Credential $credential -Attachments $report
+        name: testng-reports
+        path: reports/
