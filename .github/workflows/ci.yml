@@ -39,7 +39,15 @@ jobs:
         $to = "${{ secrets.EMAIL_TO }}"  # ✅ Replace with your receiving email
         $subject = "TestNG Report from GitHub Actions"
         $body = "Please find the attached TestNG report."
-        $attachment = "reports/emailable-report.html"  # update path if needed
+        
+         $latestReport = Get-ChildItem -Path "reports/" -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+
+        if ($null -eq $latestReport) {
+          Write-Error "No HTML report found in the 'reports/' folder."
+          exit 1
+        }
+
+        $attachment = $latestReport.FullName
         $securePassword = ConvertTo-SecureString "${{ secrets.EMAIL_PASSWORD }}" -AsPlainText -Force
         $credential = New-Object System.Management.Automation.PSCredential ($from, $securePassword)
 
