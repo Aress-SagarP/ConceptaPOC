@@ -64,7 +64,7 @@ jobs:
       run: |
         $report = Get-ChildItem -Path downloaded-report/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
         if ($null -eq $report) {
-          Write-Error "No HTML report found in downloaded-report/ folder."
+          Write-Error "No Extend report found in downloaded-report/ folder."
           exit 1
         }
 
