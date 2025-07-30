@@ -30,3 +30,20 @@ jobs:
       with:
         name: testng-reports
         path: reports/
+    - name: Send Email with Report
+      if: always()
+      run: |
+        $smtpServer = "smtp.gmail.com"
+        $smtpPort = "587"
+        $from = "${{ secrets.EMAIL_USERNAME }}"
+        $to = "${{ secrets.EMAIL_TO }}"  # ✅ Replace with your receiving email
+        $subject = "TestNG Report from GitHub Actions"
+        $body = "Please find the attached TestNG report."
+        $attachment = "reports/emailable-report.html"  # update path if needed
+        $securePassword = ConvertTo-SecureString "${{ secrets.EMAIL_PASSWORD }}" -AsPlainText -Force
+        $credential = New-Object System.Management.Automation.PSCredential ($from, $securePassword)
+
+        Send-MailMessage -From $from -To $to -Subject $subject -Body $body `
+          -SmtpServer $smtpServer -Port $smtpPort -UseSsl `
+          -Credential $credential -Attachments $attachment
+      shell: pwsh
