@@ -30,7 +30,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.5.1</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
 
         <!-- ✅ ExtentReports (latest) -->
