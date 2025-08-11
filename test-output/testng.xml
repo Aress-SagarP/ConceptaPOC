@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+	<test thread-count="5" name="Test">
+		<classes>
+
+			<!--<class name="Tims.Test_Cases.Login_Tims" />
+			<class name="Tims.Test_Cases.Verify_Blood_Batch_Creation" />
+			<class name="Tims.Test_Cases.Verify_Test_Kit_Creation" />
+			<class name="Tims.Test_Cases.Verify_Delete_Phlebotomist_Account"/>
+			<class name="Tims.Test_Cases.Verify_invalid_Inputs_for_Phleb_Account_Creation" />
+			<class name="Tims.Test_Cases.Verify_PG_Barcode_Format"/>
+			<class name="Tims.Test_Cases.Verify_Phleb_Activation_Email_Triggering" />
+			<class name="Tims.Test_Cases.Verify_Successful_Creation_Of_New_Store_Location"/>-->
+			
+			<class name="Dashboard.Test_Cases.Verify_Dashboard_Login" />
+			<class name="Dashboard.Test_Cases.TC_01_Verify_Phlebotomist_Booking_Navigation" />
+			<class name="Dashboard.Test_Cases.TC_02_Verify_Phlebotomist_Test_Type_Confirm" />
+			<class name="Dashboard.Test_Cases.TC_03_Verify_Blank_Test_Type_Selected" />
+			<class name="Dashboard.Test_Cases.TC_04_Verify_Consent_Checkbox_Validations" />
+			<class name="Dashboard.Test_Cases.TC_05_Verify_Health_Assessment_Mandatory" />
+			<class name="Dashboard.Test_Cases.TC_06_Verify_Assessment_Form_Open" />
+			<class name="Dashboard.Test_Cases.TC_07_Verify_Complete_Health_Assessment" />
+			<class name="Dashboard.Test_Cases.TC_08_Verify_Booking_ID_Generated" />
+		</classes>
+	</test>
+</suite>

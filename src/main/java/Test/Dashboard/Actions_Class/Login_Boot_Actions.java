@@ -176,7 +176,7 @@ public class Login_Boot_Actions extends BaseClass {
 	public void emailCaseSensitivity() throws IOException {
 		login_action = new Login_Action(driver);
 		login_action.enterEmailID_DB(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_email_case_sensitive"));
-		login_action.enterPassword_DB(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_Password"));
+		login_action.enterPassword_DB(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_pass_nick"));
 		login_action.clickLoginButton_Dashboard();
 		WebWait.visibilityOfElement(driver, login_boot_locators.get_loginSuccessMsg(), Duration.ofSeconds(30));
 		System.out.println("Alert: "+login_boot_locators.get_loginSuccessMsg().getText());

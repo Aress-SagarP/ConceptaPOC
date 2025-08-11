@@ -19,6 +19,7 @@ public class TC_02_And_03_Verify_Successful_Account_Creation_With_Valid_Data ext
 		create_account_actions.dashboardUrl();
 		create_account_actions.createAccount();
     }
+	
 	@Test(dependsOnMethods = "TC_02_Verify_successful_account_creation_with_valid_data")
 	public void TC_03_Verify_account_created_via_email_link() throws Exception
 	{   Create_Account_Actions create_account_actions;

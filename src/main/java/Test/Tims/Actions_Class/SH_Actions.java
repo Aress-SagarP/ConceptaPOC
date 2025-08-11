@@ -122,7 +122,7 @@ public class SH_Actions extends BaseClass {
 
 	public void dashboardLogin() throws IOException, InterruptedException {
 		Thread.sleep(3000);
-		String urlKey = determineUrlKey("dashboard_automation_resetpassword_staging");
+		String urlKey = determineUrlKey("dashboard_automation_staging");
 		driver.get(urlKey);
 		WebTextBox.sendInput(activate_test_kit_locators.get_emailDashboardLoginTxt(),
 				PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "activate_Kit_Valid_Email"));
@@ -263,7 +263,48 @@ public class SH_Actions extends BaseClass {
 		Thread.sleep(3000);	
 		driver.navigate().refresh();
 		Thread.sleep(5000);	
+	}
+	
+	public void markAsReceivedBothResultsUploaded(String fileName1, String fileName2, String csvBarcode, String barcodeOption) throws InterruptedException, IOException {
+		String barcodeChoice = barcodeOption; 
+		String selectedBarcode = selectBarcode(barcodeChoice);
 		
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_testKitSideMenuItem(), Duration.ofSeconds(20));
+		WebButton.clickButton(activate_test_kit_locators.get_testKitSideMenuItem());
+		WebWait.elementToBeClickable(driver, sh_locators.get_markAsReceivedHeaderMenuBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_markAsReceivedHeaderMenuBtn());
+		WebWait.visibilityOfElement(driver, sh_locators.get_barcodeTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(sh_locators.get_barcodeTxt(), Barcode1);
+		WebWait.elementToBeClickable(driver, sh_locators.get_nextBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_nextBtn());
+		WebWait.elementToBeClickable(driver, sh_locators.get_markAsReceivedPopupWindowBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_markAsReceivedPopupWindowBtn());
+		Thread.sleep(5000);	
+		WebWait.elementToBeClickable(driver, sh_locators.get_markAsReceivedHeaderMenuBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_markAsReceivedHeaderMenuBtn());
+		WebWait.visibilityOfElement(driver, sh_locators.get_barcodeTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(sh_locators.get_barcodeTxt(), Barcode2);
+		WebWait.elementToBeClickable(driver, sh_locators.get_nextBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_nextBtn());	
+		WebWait.elementToBeClickable(driver, sh_locators.get_markAsReceivedPopupWindowBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_markAsReceivedPopupWindowBtn());
+		Thread.sleep(5000);
+		WebWait.elementToBeClickable(driver, sh_locators.get_uploadBloodCsvHeaderMenuBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_uploadBloodCsvHeaderMenuBtn());
+		CSVUploaderWithTextReplacement.updateAndUploadCSV(driver,System.getProperty("user.dir") +"\\TestData\\SH_CSV\\" + fileName1,sh_locators.get_uploadCsvChooseFileOptionTxt(), csvBarcode, selectedBarcode);
+		Thread.sleep(1000);
+		WebButton.clickButton(sh_locators.get_uploadBtn());
+		Thread.sleep(3000);	
+		driver.navigate().refresh();
+		Thread.sleep(5000);	
+		WebWait.elementToBeClickable(driver, sh_locators.get_uploadBloodCsvHeaderMenuBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_uploadBloodCsvHeaderMenuBtn());
+		CSVUploaderWithTextReplacement.updateAndUploadCSV(driver,System.getProperty("user.dir") +"\\TestData\\SH_CSV\\" + fileName2 ,sh_locators.get_uploadCsvChooseFileOptionTxt(), "MBT-SAA-3423", Barcode2);
+		Thread.sleep(1000);
+		WebButton.clickButton(sh_locators.get_uploadBtn());
+		Thread.sleep(3000);	
+		driver.navigate().refresh();
+		Thread.sleep(5000);	
 	}
 	
 	public static String selectBarcode(String barcodeChoice) {
@@ -317,6 +358,28 @@ public class SH_Actions extends BaseClass {
 		WebTextBox.sendInput(sh_locators.get_primaryBarcodeSearchTxt(), Barcode1);
 		WebWait.visibilityOfElement(driver, sh_locators.get_ReadyForReviewEmptyData(), Duration.ofSeconds(20));
 		Assert.assertTrue(sh_locators.get_ReadyForReviewEmptyData().isDisplayed(), "Primary Barcode Not Visible In 'Ready For Review' ");
+   }
+   
+   public void getTestReportBothResultsUploaded() throws InterruptedException
+   {
+	    
+	    WebWait.elementToBeClickable(driver, sh_locators.get_testReportSideMenu(), Duration.ofSeconds(20));
+	    WebButton.clickButton(sh_locators.get_testReportSideMenu());
+	    WebWait.elementToBeClickable(driver, sh_locators.get_inLabBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_inLabBtn());
+		WebWait.visibilityOfElement(driver, sh_locators.get_primaryBarcodeSearchTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(sh_locators.get_primaryBarcodeSearchTxt(), Barcode1);
+		WebWait.visibilityOfElement(driver, sh_locators.get_ReadyForReviewEmptyData(), Duration.ofSeconds(20));
+		Assert.assertTrue(sh_locators.get_ReadyForReviewEmptyData().isDisplayed(), "Primary Barcode Visible In 'In Lab' ");
+		WebButton.clickButton(sh_locators.get_inLabBackBtn());
+		
+		WebWait.elementToBeClickable(driver, sh_locators.get_ReadyForReviewBtn(), Duration.ofSeconds(20));
+		WebButton.clickButton(sh_locators.get_ReadyForReviewBtn());	
+		
+		WebWait.visibilityOfElement(driver, sh_locators.get_primaryBarcodeSearchTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(sh_locators.get_primaryBarcodeSearchTxt(), Barcode1);
+		WebWait.visibilityOfElement(driver, sh_locators.get_inLabPrimaryBarcode(), Duration.ofSeconds(20));
+		Assert.assertTrue(sh_locators.get_inLabPrimaryBarcode().isDisplayed(), "Primary Barcode Not Visible In 'Ready For Review' ");
    }	   
 
 }

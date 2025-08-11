@@ -7,10 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import Test.Dashboard.Actions_Class.Activate_Test_Kit_Actions;
+
 public class Customer_Landing_Locators {
 
 	public WebDriver driver;
 
+	public Activate_Test_Kit_Actions activate_test_kit_actions;
 	public Customer_Landing_Locators(WebDriver driver) {
 
 		this.driver = driver;
@@ -38,21 +41,24 @@ public class Customer_Landing_Locators {
 		return  assessmentCompletedTimelineTitle;
 	}
 	
-	@FindBy(css = ".timeline__step.timeline__step--complete")
+	//@FindBy(css = ".timeline__step.timeline__step--complete")
+	@FindBy(xpath = "//div[contains(@class, 'timeline__step') and .//*[contains(@class, 'fa-check')]]")
     private List<WebElement> completedSteps;
 	
 	 public int get_completedStepsCount() {
         return completedSteps.size();
     }
 	
-	@FindBy(css = ".timeline__step.timeline__step--complete .timeline__icon .fa-check")
+	//@FindBy(css = ".timeline__step.timeline__step--complete .timeline__icon .fa-check")
+	 @FindBy(xpath = "//*[contains(@class, 'fa-check')]")
     private List<WebElement> greenCheckIcons;
 	
 	public int get_greenCheckIconCount() {
         return greenCheckIcons.size();
     }
 
-    @FindBy(css = ".timeline__step.timeline__step--complete .timeline__title")
+    //@FindBy(css = ".timeline__step.timeline__step--complete .timeline__title")
+	@FindBy(xpath = "//div[contains(@class, 'timeline__step') and .//*[contains(@class, 'fa-check')]]//p")
     private List<WebElement> completedStepTitles;
     
     public List<WebElement> get_completedStepTitles(){
@@ -217,7 +223,7 @@ public class Customer_Landing_Locators {
 		return  bookingMailSentAlert;
 	}
 	
-	@FindBy(xpath = "//p[normalize-space()='consultation required']")
+	@FindBy(xpath = "//p[normalize-space()='Consultation required']")
 	private WebElement shTestTimelineConsultationReqTitle;
 
 	public WebElement get_shTestTimelineConsultationReqTitle() {
@@ -454,4 +460,34 @@ public class Customer_Landing_Locators {
 	public List<WebElement> get_dnaTestReportHealthAreas() {
 		return dnaTestReportHealthAreas;
 	}
+	
+	@FindBy(xpath = "//div[contains(@class, 'alert-danger') and @role='alert']")
+	private WebElement containerConsultationReq;
+
+	public WebElement get_containerConsultationReq() {
+		return containerConsultationReq;
+	}
+	
+	@FindBy(xpath = "//h1[normalize-space()='My results']")
+	private WebElement myResultsTitleTxt;
+
+	public WebElement get_myResultsTitleTxt() {
+		return myResultsTitleTxt;
+	}
+	
+	@FindBy(xpath = "//*[text()='Buy tests']/ancestor::div[@data-testid='link-card']")
+	private WebElement buyTestLinkCard;
+
+	public WebElement get_buyTestLinkCard() {
+		return buyTestLinkCard;
+	}
+	
+	@FindBy(xpath = "//*[text()='Activate test']/ancestor::div[@data-testid='link-card']")
+	private WebElement activateTestLinkCard;
+
+	public WebElement get_activateTestLinkCard() {
+		return activateTestLinkCard;
+	}
+	
+	
 }

@@ -1,4 +1,6 @@
 package Wrappers;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -48,5 +50,13 @@ public class WebElementCommon {
         }
     }
 	
+	public static boolean isElementPresentAndDisplayed(WebDriver driver, By locator) {
+	    try {
+	        WebElement element = driver.findElement(locator);
+	        return element.isDisplayed();
+	    } catch (NoSuchElementException e) {
+	        return false;
+	    }
+	}
 
 }

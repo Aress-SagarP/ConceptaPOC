@@ -124,7 +124,7 @@ public class BaseClass {
 			}
 		} finally {
 			extentTest.remove();
-			//report.flush();
+			report.flush();
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class BaseClass {
 	public void afterClass() {
 		WebDriver driverInstance = getDriver();
 		if (driverInstance != null) {
-			//driverInstance.quit();
+			driverInstance.quit();
 		}
 		driver.remove();
 	}
@@ -174,8 +174,8 @@ public class BaseClass {
 				return PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "tims_URL_For_Dashboard");
 			case "dashboard_dev":
 				return PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "dashboard_dev_url");
-			case "dashboard_automation_resetpassword_staging":
-				return PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "dashboard_automation_resetpassword_staging");	
+			case "dashboard_automation_staging":
+				return PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "dashboard_automation_staging");	
 			case "Tims_dev":
 				return PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Tims_url_dev");
 			default:

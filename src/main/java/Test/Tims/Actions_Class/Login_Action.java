@@ -182,4 +182,25 @@ public class Login_Action extends BaseClass {
 		// WebWait.waitForDOMLoad(driver, null);
 
 	}
+	
+	public void login_dashboard_staging() throws IOException {
+		try {
+			String urlKey = determineUrlKey("dashboard_automation_staging");
+			driver.get(urlKey);
+			enterEmailID_hcp(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_Email"));
+			enterPassword_hcp(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_Password"));
+			clickLoginButton_Dashboard();
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+		}
+	}
+	
+	public void navToStagingDashboard() {
+		try {
+			String urlKey = determineUrlKey("dashboard_automation_staging");
+			driver.get(urlKey);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+		}
+	}
 }

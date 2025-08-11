@@ -22,4 +22,6 @@ public class TC_20_TC_30_Verify_Report_View_Functionality extends BaseClass {
 		customer_landing_actions = new Customer_Landing_Actions(getDriver());
 		customer_landing_actions.verifyBiomarkerDetailsSHTest();
 	}
+	
+	
 }

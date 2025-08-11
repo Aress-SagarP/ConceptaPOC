@@ -29,9 +29,11 @@ import org.testng.Assert;
 import com.aventstack.extentreports.Status;
 
 import Test.Dashboard.Locators_Class.Activate_Test_Kit_Locators;
+import Test.Dashboard.Locators_Class.Customer_Landing_Locators;
 import Test.Dashboard.Locators_Class.Health_Assessment_Locators;
 import Test.Tims.Actions_Class.Login_Action;
 import Wrappers.CSVUploaderWithTextReplacement;
+import Wrappers.CaptureScreenshot;
 import Wrappers.WebButton;
 import Wrappers.WebCheckBox;
 import Wrappers.WebCommonPath;
@@ -49,7 +51,7 @@ public class Health_Assessment_Actions {
 	public static String formattedDate;
 
 	Health_Assessment_Locators health_assessment_locators;
-	Activate_Test_Kit_Actions activate_test_kit_actions;
+	public Activate_Test_Kit_Actions activate_test_kit_actions;
 	Activate_Test_Kit_Locators activate_test_kit_locators;
 	Login_Action login_action;
 	
@@ -58,6 +60,7 @@ public class Health_Assessment_Actions {
 		this.driver = driver;
 		health_assessment_locators = new Health_Assessment_Locators(driver);
 		activate_test_kit_actions = new Activate_Test_Kit_Actions(driver);
+		activate_test_kit_actions.setHealthAssessmentActions(this);
 		activate_test_kit_locators = new Activate_Test_Kit_Locators(driver);
 		login_action = new Login_Action(driver);
 	}
@@ -68,11 +71,12 @@ public class Health_Assessment_Actions {
 	}
 
 	public void cancel_Appointment() throws InterruptedException {
-		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(30));
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(20));
 		WebButton.clickButton(health_assessment_locators.get_enableLaterBtn());
 		WebButton.clickButton(health_assessment_locators.get_bootsAppointmentAppMenuBtn());
 		try {
 			Thread.sleep(2000);
+			WebWait.elementToBeClickable(driver, health_assessment_locators.get_continueBtn(), Duration.ofSeconds(10));
 			WebButton.clickButton(health_assessment_locators.get_continueBtn());
 		} catch (Exception e) {
 			Thread.sleep(2000);
@@ -81,6 +85,8 @@ public class Health_Assessment_Actions {
 			WebWait.elementToBeClickable(driver, health_assessment_locators.get_rejectConfirmBtn(),
 					Duration.ofSeconds(20));
 			WebButton.clickButton(health_assessment_locators.get_rejectConfirmBtn());
+			WebWait.elementToBeClickable(driver, health_assessment_locators.get_continueBtn(), Duration.ofSeconds(10));
+			WebButton.clickButton(health_assessment_locators.get_continueBtn());
 		}
 
 	}
@@ -104,8 +110,10 @@ public class Health_Assessment_Actions {
 
 	public void navigateToConfirmDetails() throws InterruptedException {
 		cancel_Appointment();
-		WebWait.elementToBeClickable(driver, health_assessment_locators.get_continueBtn(), Duration.ofSeconds(20));
-		WebButton.clickButton(health_assessment_locators.get_continueBtn());
+//		WebWait.elementToBeClickable(driver, health_assessment_locators.get_continueBtn(), Duration.ofSeconds(20));
+//		WebButton.clickButton(health_assessment_locators.get_continueBtn());
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_confirmBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_confirmBtn(), driver);
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_submitBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_submitBtn(), driver);
 		Thread.sleep(2000);
@@ -1489,7 +1497,8 @@ public class Health_Assessment_Actions {
 		
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_leftSideBarMyResultsBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_leftSideBarMyResultsBtn(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, driver.findElement(
 			    By.xpath("//code[text()='" + Barcode1 + "']/ancestor::div[@data-testid='link-card']//a[contains(@href,'assessment')]")), Duration.ofSeconds(30));
 		WebElement myResultsFillAssessmentBtn = driver.findElement(
@@ -1689,7 +1698,8 @@ public class Health_Assessment_Actions {
 		login_action.navToDashboard();
 		Thread.sleep(3000);
 		WebButton.JsclickButton(health_assessment_locators.get_leftSideBarMyResultsBtn(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(20000);
 		WebElement fillAssessmentMyResult = driver.findElement(By.xpath("//code[text()='" + Barcode1 + "']/ancestor::div[@data-testid='link-card']//a[contains(@href,'assessment')]"));
 		WebWait.visibilityOfElement(driver,fillAssessmentMyResult , Duration.ofSeconds(20));
 		Thread.sleep(4000);
@@ -1786,6 +1796,7 @@ public class Health_Assessment_Actions {
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_createDNABatchBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_createDNABatchBtn(), driver);
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_createDNABatchBtn(), Duration.ofSeconds(20));
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_typeDNABatchDrp(), Duration.ofSeconds(20));
 		WebDropDown.selectByText(health_assessment_locators.get_typeDNABatchDrp(), "wellness");
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_countDNABatchTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInput(health_assessment_locators.get_countDNABatchTxt(), "2");
@@ -1811,7 +1822,7 @@ public class Health_Assessment_Actions {
 		System.out.println("Alert: "+health_assessment_locators.get_csvUploadedAlert().getText());
 		Thread.sleep(3000);
 		
-		login_action.login_Dashboard2();
+		login_action.login_dashboard_staging();
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_enableLaterBtn(), driver);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateTestSideMenuItem(), Duration.ofSeconds(20));
@@ -1878,7 +1889,8 @@ public class Health_Assessment_Actions {
         
         WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(20000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(20000);
 		WebWait.elementToBeClickable(driver, getViewTestBtn(Barcode1), Duration.ofSeconds(30));
 		WebScrollView.scrollToElement(driver,getViewTestBtn(Barcode1));
 		Thread.sleep(2000);
@@ -1922,5 +1934,355 @@ public class Health_Assessment_Actions {
 		// System.out.println("Formatted system date: " + formattedDate);
 		return formattedDate;
 	}
+	
+	
+	public void verifyNegativeHeightAndWeight() {
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_continueHealthAssessmentBtn(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_continueHealthAssessmentBtn(), driver);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_heightTxt(), Duration.ofSeconds(10));
+		WebTextBox.sendInputUpdateToReport(health_assessment_locators.get_heightTxt(), "Height", "-180");
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_weightTxt(), Duration.ofSeconds(10));
+		WebTextBox.sendInputUpdateToReport(health_assessment_locators.get_weightTxt(), "Weight", "-80");
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_smokeCigarettesDrp(), Duration.ofSeconds(10));
+		selectOptionSmokeCigarettes("No");
+		selectOptionDrinkalcohol("No");
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_cnfCntHealthAssessBtn(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		String actualErrorHeight = health_assessment_locators.get_negativeHeightErrorMsg().getText();
+		String expectedErrorHeight = "Height must be greater than or equal to 50 cms";
+		String actualErrorWeight = health_assessment_locators.get_negativeWeightErrorMsg().getText();
+		String expectedErrorWeight = "Weight must be greater than or equal to 20 kgs";
+		System.out.println("Error Msg (Height): "+actualErrorHeight);
+		System.out.println("Error Msg (Weight): "+actualErrorWeight);
+		assertEquals(actualErrorHeight, expectedErrorHeight, "Error message mismatch");
+		assertEquals(actualErrorWeight, expectedErrorWeight, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Height): "+actualErrorHeight);
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Weight): "+actualErrorWeight);
+	}
+	
+	public void verifyUnrealisticHeightWeight() {
+		WebTextBox.sendInputUpdateToReport(health_assessment_locators.get_heightTxt(), "Height", "400");
+		WebTextBox.sendInputUpdateToReport(health_assessment_locators.get_weightTxt(), "Weight", "600");
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		String actualErrorHeight = health_assessment_locators.get_unrealHeightErrorMsg().getText();
+		String expectedErrorHeight = "Height must be less than or equal to 300 cms";
+		String actualErrorWeight = health_assessment_locators.get_unrealWeightErrorMsg().getText();
+		String expectedErrorWeight = "Weight must be less than or equal to 500 kgs";
+		System.out.println("Error Msg (Height): "+actualErrorHeight);
+		System.out.println("Error Msg (Weight): "+actualErrorWeight);
+		assertEquals(actualErrorHeight, expectedErrorHeight, "Error message mismatch");
+		assertEquals(actualErrorWeight, expectedErrorWeight, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Height): "+actualErrorHeight);
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Weight): "+actualErrorWeight);
+	}
+	
+	public void verifyDrpOptionsForSmokeCigarettes() throws InterruptedException {
+		Thread.sleep(2000);
+		WebScrollView.scrollDownVertically(driver);
+		Thread.sleep(2000);
+		WebButton.JsclickButton(health_assessment_locators.get_smokeCigarettesDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("", "Yes", "No");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_smokeCigarettesDrp());
+		String label = health_assessment_locators.get_smokeCigarettesDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyDrpOptionsForNumOfCigerettes() {
+		selectOptionSmokeCigarettes("Yes");
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_cigarettesPerDayDrp(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_cigarettesPerDayDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("", "0 - 5", "6 - 10", "11 - 20", "20+");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_cigarettesPerDayDrp());
+		String label = health_assessment_locators.get_cigarettesPerDayDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyDrpOptionsForDrinkAlcohol() throws InterruptedException {
+		Thread.sleep(2000);
+		WebScrollView.scrollDownVertically(driver);
+		Thread.sleep(2000);
+		WebButton.JsclickButton(health_assessment_locators.get_drinkAlcoholDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("", "Yes", "No");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_drinkAlcoholDrp());
+		String label = health_assessment_locators.get_drinkAlcoholDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyDrpOptionsForAlcoholCount() throws InterruptedException {
+		selectOptionDrinkalcohol("Yes");
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_alcoholPerWeekDrp(), Duration.ofSeconds(10));
+		Thread.sleep(2000);
+		WebScrollView.scrollDownVertically(driver);
+		Thread.sleep(2000);
+		WebButton.JsclickButton(health_assessment_locators.get_alcoholPerWeekDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("", "0 - 7", "7 - 14", "15 - 30", "30+");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_alcoholPerWeekDrp());
+		String label = health_assessment_locators.get_alcoholPerWeekDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyCigarettesAlcoholStatusIsMandatory() {
+		WebDropDown.selectByIndex(health_assessment_locators.get_smokeCigarettesDrp(), "0", driver);
+		WebDropDown.selectByIndex(health_assessment_locators.get_drinkAlcoholDrp(), "0", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptySmokingStatusErrorMsg(), Duration.ofSeconds(10));
+		String actualErrorSmoking = health_assessment_locators.get_emptySmokingStatusErrorMsg().getText();
+		String expectedErrorSmoking = "Smoking status is required";
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyAlcoholStatusErrorMsg(), Duration.ofSeconds(10));
+		String actualErrorAlcohol = health_assessment_locators.get_emptyAlcoholStatusErrorMsg().getText();
+		String expectedErrorAlcohol = "Alcohol consumption status is required";
+		System.out.println("Error Msg (Smoking): "+actualErrorSmoking);
+		System.out.println("Error Msg (Alcohol): "+actualErrorAlcohol);
+		assertEquals(actualErrorSmoking, expectedErrorSmoking, "Error message mismatch");
+		assertEquals(actualErrorAlcohol, expectedErrorAlcohol, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Smoking): "+actualErrorSmoking);
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Alcohol): "+actualErrorAlcohol);
+	}
+	
+	public void verifySmokeAndAlcoholCountFieldIsMandatory() {
+		selectOptionSmokeCigarettes("Yes");
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_cigarettesPerDayDrp(), Duration.ofSeconds(10));
+		WebDropDown.selectByIndex(health_assessment_locators.get_cigarettesPerDayDrp(), "0", driver);
+		selectOptionDrinkalcohol("Yes");
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_alcoholPerWeekDrp(), Duration.ofSeconds(10));
+		WebDropDown.selectByIndex(health_assessment_locators.get_alcoholPerWeekDrp(), "0", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptySmokeCountErrorMsg(), Duration.ofSeconds(10));
+		String actualErrorSmokingCount = health_assessment_locators.get_emptySmokeCountErrorMsg().getText();
+		String expectedErrorSmokingCount = "Please provide the number of cigarettes you smoke each day";
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyAlcoholCountErrorMsg(), Duration.ofSeconds(10));
+		String actualErrorAlcoholCount = health_assessment_locators.get_emptyAlcoholCountErrorMsg().getText();
+		String expectedErrorAlcoholCount = "Please provide your alcohol consumption units each week";
+		System.out.println("Error Msg (Smoking count): "+actualErrorSmokingCount);
+		System.out.println("Error Msg (Alcohol count): "+actualErrorAlcoholCount);
+		assertEquals(actualErrorSmokingCount, expectedErrorSmokingCount, "Error message mismatch");
+		assertEquals(actualErrorAlcoholCount, expectedErrorAlcoholCount, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Smoking): "+actualErrorSmokingCount);
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Alcohol): "+actualErrorAlcoholCount);
+	}
+	
+	public void verifyDrpOptionsForPhysicalActivity() {
+		WebTextBox.sendInputUpdateToReport(health_assessment_locators.get_heightTxt(), "Height", "180");
+		WebTextBox.sendInputUpdateToReport(health_assessment_locators.get_weightTxt(), "Weight", "80");
+		WebDropDown.selectByIndex(health_assessment_locators.get_cigarettesPerDayDrp(), "1", driver);
+		WebDropDown.selectByIndex(health_assessment_locators.get_alcoholPerWeekDrp(), "1", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_physicalActivityDrp(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_physicalActivityDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("", "Yes", "No");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_physicalActivityDrp());
+		String label = health_assessment_locators.get_physicalActivityDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyPhysicalActivityIsMandatory() {
+		WebDropDown.selectByIndex(health_assessment_locators.get_physicalActivityDrp(), "0", driver);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_cnfCntHealthAssessBtn(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyPhysicalActivityErrorMsg(), Duration.ofSeconds(10));
+		String actualErrorPhysicalActivity = health_assessment_locators.get_emptyPhysicalActivityErrorMsg().getText();
+		String expectedErrorPhysicalActivity = "Physical activity status is required";
+		System.out.println("Error Msg (Physical activity): "+actualErrorPhysicalActivity);
+		assertEquals(actualErrorPhysicalActivity, expectedErrorPhysicalActivity, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Physical activity): "+actualErrorPhysicalActivity);
+		CaptureScreenshot.captureAndAttachScreenshot("Physical activity");
+		
+		WebDropDown.selectByIndex(health_assessment_locators.get_physicalActivityDrp(), "1", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		String actualErrorLightActivity = health_assessment_locators.get_emptyLightActivityErrorMsg().getText();
+		String expectedErrorLightActivity = "Light activity hours are required";
+		String actualErrorModerateActivity = health_assessment_locators.get_emptyModerateActivityErrorMsg().getText();
+		String expectedErrorModerateActivity = "Moderate activity hours are required";
+		String actualErrorVigorousActivity = health_assessment_locators.get_emptyVigorousActivityErrorMsg().getText();
+		String expectedErrorVigorousActivity = "Vigorous activity hours are required";
+		System.out.println("Error Msg (Light activity): "+actualErrorLightActivity);
+		System.out.println("Error Msg (Moderate activity): "+actualErrorModerateActivity);
+		System.out.println("Error Msg (Vigorous activity): "+actualErrorVigorousActivity);
+		assertEquals(actualErrorLightActivity, expectedErrorLightActivity, "Error message mismatch");
+		assertEquals(actualErrorModerateActivity, expectedErrorModerateActivity, "Error message mismatch");
+		assertEquals(actualErrorVigorousActivity, expectedErrorVigorousActivity, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Light activity): "+actualErrorLightActivity);
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Moderate activity): "+actualErrorModerateActivity);
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Vigorous activity): "+actualErrorVigorousActivity);
+
+	}
+	
+	public void verifyDrpOptionsForMedicalCondition(){
+		WebDropDown.selectByIndex(health_assessment_locators.get_physicalActivityDrp(), "2", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_medicalConditionDrp(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_medicalConditionDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("Please choose", "Yes", "No");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_medicalConditionDrp());
+		String label = health_assessment_locators.get_medicalConditionDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyErrorMsgForMedicalConditions() throws InterruptedException {
+		WebDropDown.selectByIndex(health_assessment_locators.get_medicalConditionDrp(), "0", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyMedicalConditionErrorMsg(), Duration.ofSeconds(20));
+		String actualDrpError = health_assessment_locators.get_emptyMedicalConditionErrorMsg().getText();
+		String expectedDrpError = "Please select either 'Yes' or 'No' from the dropdown menu";
+		System.out.println("Error Msg (Medical Cond. drp): "+actualDrpError);
+		assertEquals(actualDrpError, expectedDrpError, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Medical Cond. drp): "+actualDrpError);
+		WebDropDown.selectByIndex(health_assessment_locators.get_medicalConditionDrp(), "1", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_noMedicalConditionChkBoxSelectedErrorMsg(), Duration.ofSeconds(20));
+		String actualChkBoxError = health_assessment_locators.get_noMedicalConditionChkBoxSelectedErrorMsg().getText();
+		String expectedChkBoxError = "Please select a medical condition";
+		System.out.println("Error Msg (Medical Cond. checkbox): "+actualChkBoxError);
+		assertEquals(actualChkBoxError, expectedChkBoxError, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Medical Cond. drp): "+actualChkBoxError);
+		WebButton.JsclickButton(health_assessment_locators.get_medicalConditionOtherChkBox(), driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyOthersTxtBoxMedicalConditionErrorMsg(), Duration.ofSeconds(20));
+		String actualOtherError = health_assessment_locators.get_emptyOthersTxtBoxMedicalConditionErrorMsg().getText();
+		String expectedOtherError = "Please specify other medical condition";
+		Thread.sleep(1000);
+		WebScrollView.scrollDownVertically(driver);
+		System.out.println("Error Msg (Medical Cond. Other): "+actualOtherError);
+		assertEquals(actualOtherError, expectedOtherError, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Medical Cond. Other): "+actualOtherError);
+		
+	}
+	
+	public void verifyListOfMedicalConditions() {
+		
+		List<String> expectedOptions = Arrays.asList("Anaemia", "Cancer", "Chronic Kidney Disease", "Coeliac Disease", "COPD", "Diabetes", "Dementia",
+				"Gout","Heart disease","High blood pressure","High cholesterol","HIV","Irritable bowel syndrome","Inflammatory bowel disease",
+				"Irregular heart rhythm","Liver disease", "Mental health problems", "Polycystic Ovary Syndrome", "Rheumatoid arthritis", 
+				"Thyroid problems","Stroke / TIA", "Other");
+		List<String> actualOptions = new ArrayList<>();
+		List<WebElement> listOfMedicalCondition = health_assessment_locators.get_listMedicalConditions();
+		for(WebElement condition : listOfMedicalCondition) {
+			actualOptions.add(condition.getAttribute("value"));
+		}
+		
+		StringBuilder reportLog = new StringBuilder();
+		System.out.println("List of Medical Condition:");
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Checkbox label mismatch");
+		ExtentManager.getTest().log(Status.PASS, "List of Medical conditions: <br>" +reportLog.toString());
+	}
+	
+	public void verifyMedicationDrpOptions() {
+		WebDropDown.selectByIndex(health_assessment_locators.get_medicalConditionDrp(), "2", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_medicationDrp(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_medicationDrp(), driver);
+		List<String> expectedOptions = Arrays.asList("", "Yes", "No");
+		List<String> actualOptions = WebDropDown.getDropdownOptions(driver, health_assessment_locators.get_medicationDrp());
+		String label = health_assessment_locators.get_medicationDrp().findElement(By.xpath(".//preceding-sibling::label")).getText();
+		System.out.println(label);
+		StringBuilder reportLog = new StringBuilder();
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Dropdown values mismatch");
+		ExtentManager.getTest().log(Status.PASS, label +reportLog.toString());
+	}
+	
+	public void verifyErrorMessageMedication() {
+		
+		WebDropDown.selectByIndex(health_assessment_locators.get_medicationDrp(), "0", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyMedicationErrorMsg(), Duration.ofSeconds(20));
+		String actualDrpErrorMsg = health_assessment_locators.get_emptyMedicationErrorMsg().getText();
+		String expectedDrpErrorMsg = "Please select an option";
+		System.out.println("Error Msg (Medication drp): "+actualDrpErrorMsg);
+		assertEquals(actualDrpErrorMsg, expectedDrpErrorMsg, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Medication drp): "+actualDrpErrorMsg);
+		
+		WebDropDown.selectByIndex(health_assessment_locators.get_medicationDrp(), "1", driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_noMedicationChkBoxSelectedErrorMsg(), Duration.ofSeconds(20));
+		String actualChkBoxErrorMsg = health_assessment_locators.get_noMedicationChkBoxSelectedErrorMsg().getText();
+		String expectedChkBoxErrorMsg = "Please select at least one medication";
+		System.out.println("Error Msg (Medication checkbox): "+actualChkBoxErrorMsg);
+		assertEquals(actualChkBoxErrorMsg, expectedChkBoxErrorMsg, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Medication checkbox): "+actualChkBoxErrorMsg);
+		
+		WebButton.JsclickButton(health_assessment_locators.get_medicationOtherChkBox(), driver);
+		WebButton.JsclickButton(health_assessment_locators.get_cnfCntHealthAssessBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_emptyMedicationOtherErrorMsg(), Duration.ofSeconds(20));
+		String actualOtherErrorMsg = health_assessment_locators.get_emptyMedicationOtherErrorMsg().getText();
+		String expectedOtherErrorMsg = "Please specify other medication details";
+		System.out.println("Error Msg (Medication Other): "+actualOtherErrorMsg);
+		assertEquals(actualOtherErrorMsg, expectedOtherErrorMsg, "Error message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Error Msg (Medication Other): "+actualOtherErrorMsg);
+		
+	}
+	
+	public void verifyMedicationList() {
+		List<String> expectedOptions = 
+				Arrays.asList("Blood pressure medication", "Cholesterol lowering drugs", "Contraceptives", "Diabetes medication including insulin",
+				"Diuretics", "Heart medication", "Mental health medication","Steroids", "Thyroxine","Other");
+		List<String> actualOptions = new ArrayList<>();
+		List<WebElement> listOfMedications = health_assessment_locators.get_listMedications();
+		for(WebElement condition : listOfMedications) {
+			actualOptions.add(condition.getAttribute("value"));
+		}
+		
+		StringBuilder reportLog = new StringBuilder();
+		System.out.println("List of Medications:");
+		for(String option : actualOptions) {
+			System.out.println(option);
+			reportLog.append(option).append("<br>");
+		}
+		assertEquals(actualOptions, expectedOptions, "Checkbox label mismatch");
+		ExtentManager.getTest().log(Status.PASS, "List of Medications: <br>" +reportLog.toString());
+	}
+	
 
 }

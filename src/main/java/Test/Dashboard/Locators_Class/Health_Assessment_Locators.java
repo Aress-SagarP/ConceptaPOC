@@ -814,5 +814,152 @@ public class Health_Assessment_Locators {
 		return csvResultsfileUploadWindowUploadBtn;
 	}
 	
+	@FindBy(xpath = "//h1[normalize-space()='My results']")
+	private WebElement myResultsTitleTxt;
+
+	public WebElement get_myResultsTitleTxt() {
+		return myResultsTitleTxt;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Height must be greater than or equal to 50 cms']")
+	private WebElement negativeHeightErrorMsg;
+
+	public WebElement get_negativeHeightErrorMsg() {
+		return negativeHeightErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Weight must be greater than or equal to 20 kgs']")
+	private WebElement negativeWeightErrorMsg;
+
+	public WebElement get_negativeWeightErrorMsg() {
+		return negativeWeightErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Height must be less than or equal to 300 cms']")
+	private WebElement unrealHeightErrorMsg;
+
+	public WebElement get_unrealHeightErrorMsg() {
+		return unrealHeightErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Weight must be less than or equal to 500 kgs']")
+	private WebElement unrealWeightErrorMsg;
+
+	public WebElement get_unrealWeightErrorMsg() {
+		return unrealWeightErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Smoking status is required']")
+	private WebElement emptySmokingStatusErrorMsg;
+
+	public WebElement get_emptySmokingStatusErrorMsg() {
+		return emptySmokingStatusErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Alcohol consumption status is required']")
+	private WebElement emptyAlcoholStatusErrorMsg;
+
+	public WebElement get_emptyAlcoholStatusErrorMsg() {
+		return emptyAlcoholStatusErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Please provide the number of cigarettes you smoke each day']")
+	private WebElement emptySmokeCountErrorMsg;
+
+	public WebElement get_emptySmokeCountErrorMsg() {
+		return emptySmokeCountErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Please provide your alcohol consumption units each week']")
+	private WebElement emptyAlcoholCountErrorMsg;
+
+	public WebElement get_emptyAlcoholCountErrorMsg() {
+		return emptyAlcoholCountErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Physical activity status is required']")
+	private WebElement emptyPhysicalActivityErrorMsg;
+
+	public WebElement get_emptyPhysicalActivityErrorMsg() {
+		return emptyPhysicalActivityErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Light activity hours are required']")
+	private WebElement emptyLightActivityErrorMsg;
+
+	public WebElement get_emptyLightActivityErrorMsg() {
+		return emptyLightActivityErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Moderate activity hours are required']")
+	private WebElement emptyModerateActivityErrorMsg;
+
+	public WebElement get_emptyModerateActivityErrorMsg() {
+		return emptyModerateActivityErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Vigorous activity hours are required']")
+	private WebElement emptyVigorousActivityErrorMsg;
+
+	public WebElement get_emptyVigorousActivityErrorMsg() {
+		return emptyVigorousActivityErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and contains(text(),'Please select either' )]")
+	private WebElement emptyMedicalConditionErrorMsg;
+
+	public WebElement get_emptyMedicalConditionErrorMsg() {
+		return emptyMedicalConditionErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback mb-2' and text()='Please select a medical condition']")
+	private WebElement noMedicalConditionChkBoxSelectedErrorMsg;
+
+	public WebElement get_noMedicalConditionChkBoxSelectedErrorMsg() {
+		return noMedicalConditionChkBoxSelectedErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Please specify other medical condition']")
+	private WebElement emptyOthersTxtBoxMedicalConditionErrorMsg;
+
+	public WebElement get_emptyOthersTxtBoxMedicalConditionErrorMsg() {
+		return emptyOthersTxtBoxMedicalConditionErrorMsg;
+	}
+	
+	@FindBy(xpath = "//input[@name='condition' and @value='Other']")
+	private WebElement medicalConditionOtherChkBox;
+
+	public WebElement get_medicalConditionOtherChkBox() {
+		return medicalConditionOtherChkBox;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Please select an option']")
+	private WebElement emptyMedicationErrorMsg;
+
+	public WebElement get_emptyMedicationErrorMsg() {
+		return emptyMedicationErrorMsg;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback mb-2' and text()='Please select at least one medication']")
+	private WebElement noMedicationChkBoxSelectedErrorMsg;
+
+	public WebElement get_noMedicationChkBoxSelectedErrorMsg() {
+		return noMedicationChkBoxSelectedErrorMsg;
+	}
+	
+	@FindBy(xpath = "//input[@name='medications' and @value='Other']")
+	private WebElement medicationOtherChkBox;
+
+	public WebElement get_medicationOtherChkBox() {
+		return medicationOtherChkBox;
+	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Please specify other medication details']")
+	private WebElement emptyMedicationOtherErrorMsg;
+
+	public WebElement get_emptyMedicationOtherErrorMsg() {
+		return emptyMedicationOtherErrorMsg;
+	}
+	
 	
 }

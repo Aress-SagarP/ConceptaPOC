@@ -72,7 +72,7 @@ public class Login_Boot_Locators {
 		return successfulLogoutMsg;
 	}
 
-	@FindBy(xpath = "//button[normalize-space()='Enable Later']")
+	@FindBy(xpath = "//button[normalize-space()='Enable later']")
 	private WebElement enableLaterBtn;
 
 	public WebElement get_enableLaterBtn() {

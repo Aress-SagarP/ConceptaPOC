@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+<parameter name="headless" value="true"/>
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_36_Verify_Personal_Details_Does_Not_Erase_If_Go_Back_Page"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_09_To_TC_18_Verify_Activate_Kit_Process"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_37_Verify_User_Friendly_UI"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_19_To_TC_20_Verify_Error_Messages_Are_Displayed_Properly"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_35_Verify_Same_Tracking_Number_Allowed_For_Multiple_Activation_Process"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_33_Verify_Placeholders"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_30_Verify_User_Cant_Goto_Activation_Confirmation_Page_Without_Completing_All_Previous_Steps"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_03_Verify_Error_With_Empty_Fields_For_Barcode_And_Tracking_Number"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_29_Verify_To_Edit_Date_After_Activation_Completed"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_23_To_TC_27_Verify_Screen_Resolution_Sizes"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_02_TC_40_Verify_Auto_Population_Of_Secondary_Barcode"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_01_Verify_User_Can_Click_The_Activate_Blood_Test_Button"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_34_Verify_Empty_Feilds_Required_Icon"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_08_Verify_Activate_Test_Kit_For_Expired_Barcode"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_05_Verify_System_Allows_User_To_Activate_Kit_For_InComplete_Activation_Process"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_55_to_TC_59_Verify_Various_Types_Of_Barcodes"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_07_Verify_Invalid_Tracking_Number"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_39_TC_41_Verify_Error_For_Invalid_Barcode"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_38_Verify_Tooltip_On_How_To_Page"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_06_Verify_Error_For_Already_Used_Barcode"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_31_Verify_No_Data_Remians_On_Screen_If_Browser_Back_Is_Used_After_Logout"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_22_Verify_System_Does_Not_Allow_To_Activate_Kit_More_Than_One_Time"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_42_Verify_End_To_End_Case"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_21_Verify_System_Correctly_Handles_Browser_Back_Button_Behavior"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_43_to_TC_54_ATC_Verify_The_Postage_Tracking_Number_Auto_Population"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_28_Verify_Webelements_Are_Labelled_Clearly"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_04_Verify_Large_Input_In_Barcode_Field"/>
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_32_Verify_Double_Barcode_For_How_To_Page_With_12_Elements"/>
+      
+      <!--Create_Account-->
+      <class name="Dashboard.Create_Account_Test_Cases.TC_09_Verify_Invalid_Email_Format"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_12_Verify_Already_Exisitng_Account_Error"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_04_Verify_Mandatory_Fields"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_06_Verify_Empty_Last_Name"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_08_Verify_Empty_Password"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_07_Verify_Empty_Email"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_10_Verify_Invalid_Password_Format"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_05_Verify_Empty_First_Name"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_01_Verify_That_The_Create_Account_Page_Loads_Correctly"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_02_And_03_Verify_Successful_Account_Creation_With_Valid_Data"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_11_Verify_That_Marketing_Consent_Checkbox_Is_Optional"/>
+      
+      <!--Customer Landing-->
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_02_Verify_The_Display_Correct_Timeline_Statuses_Icons_For_Test_Kits"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_24_Verify_The_Dashboard_Update_For_DNA_Test_With_Result_Published"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_26_Verify_That_The_Fill_Or_Edit_Assessment_Functionality_After_Result_Upload"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_06_Verify_The_Timeline_For_Rejected_Test_Kit"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_28_Verify_Fill_Assessment_Functionality_After_Result_Upload_For_Hormone_Test"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_53_TC_44_Verify_Highlighting_Of_Error_Messages_In_Dashboard"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_03_TC_04_Verify_Dynamic_Test_Updates_For_Blood_Tests"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_10_TC_11_Verify_Dashboard_Message_And_Button_Display_When_Health_Assessment_Is_Not_Filled"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_46_Verify_Pictorial_Scale_For_Biomarker_Report"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_45_TC_43_TC_48_TC_52_Verify_Calendar_UI_for_SH_Consultation"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_42_Verify_Button_Styles_And_Visibility"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_07_TC_13_TC_15_Verify_The_Timeline_For_SH_Test_With_Unconfirmed_Results"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_22_TC_23_TC_25_Verify_Timeline_Update_For_DNA_Tests"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_50_Verify_Clickable_Area_Of_Buttons"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_21_TC_29_TC_31_Verify_Test_Summary_For_Blood_Test"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_20_TC_30_Verify_Report_View_Functionality"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_40_Verify_Layout_Consistency"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_01_TC_51_Verify_Message_Display_When_No_Tests_Are_Available"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_05_Verify_The_Timeline_Of_Incomplete_Activated_Test_Kit"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_08_TC_09_Verify_Timeline_For_DNA_Tests"/>
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_41_TC_54_Verify_Timeline_Icon_Design"/>
+      
+      <!-- Health Assessment-->
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_32_TC_33_Verify_Ability_To_Fill_The_Health_Assessment_After_Sample_Reach_To_Lab_For_Blood_Hormone_Tests"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_36_TC_37_Verify_Navigation_Buttons_Functionality_On_Health_Assessment_Page"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_01_to_07_Verify_The_Successful_Health_Assessment_Filling_For_Normal_Blood_Test"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_28_TC_29_Verify_Submitting_Health_Assessment_Without_Filling_Any_Data_On_Every_Page"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_24_to_TC_27_Verify_That_Selecting_Other_Check_Box_For_Medical_Conditions_Prompts_The_Customer_To_Add_Custom_Details"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_38_Verify_Required_Fields_Are_Marked_With_Asterisk"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_41_Verify_That_All_Input_Fields_In_The_Health_Assessment_Form_Have_Appropriate_Placeholder_Text"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_42_Verify_The_Successful_Health_Assessment_Filling_For_DNA_Test"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_11_to_TC_17_Verify_The_Successful_Health_Assessment_Filling_For_Blood_SH_Test"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_44_Verify_The_Conversion_Accuracy_For_Height_And_Weight_Values_Between_Metric_And_Imperial_Units"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_08_TC_09_TC_10_Verify_The_Successful_Health_Assessment_Filling_For_Blood_Hormone_Test"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_34_Verify_That_Users_Can_Navigate_Between_Fields_Using_Tab_Key"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_30_TC_31_Verify_That_Fill_Health_Assessment_Change_After_Assessment_Completion"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_40_Verify_All_Elements_Are_Visible_And_Aligned_Correctly"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_39_Verify_System_Handles_Special_Characters_Correctly_In_Text_Input_Fields"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_35_Verify_The_NHS_Link_Navigation"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_45_to_TC_60_ATC_Verify_User_Enters_Negative_Height_And_Weight"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_18_to_TC_23_Verify_Selecting_Yes_For_Smoking_And_Alcohol_Prompts_Additional_Options"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_43_Verify_The_Successful_Health_Assessment_Filling_For_Normal_Blood_Test_With_The_Option_As_Yes"/>
+      
+      <!-- Login Logout-->
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_02_TC_03_Verify_Login_With_Invalid_Email_And_Password"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_10_Check_The_Password_Visibility_Toggle"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_05_Verify_Login_With_Empty_Password_Field"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_01_TC_08_Verify_User_Can_Login_With_Valid_Credential"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_07_Verify_Login_For_Password_Case_Insensitivity"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_13_Check_The_Error_Messages_Displayed_On_The_Login_Page"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_04_Verify_Login_With_Empty_Email_Field"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_09_Check_Login_For_Mixed_Case_Email"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_06_Verify_Login_With_Invalid_Email_Format"/>
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_11_TC_12_Check_The_Element_Visibility_On_Login_Page"/>
+      
+      <!-- Reset Password-->
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_09_Verify_Password_Reset_Functionality_With_Invalid_Email_Address"/>
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_10_Verify_Reset_Password_Email_Link_Sent"/>
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_01_to_TC_08_Verify_Password_Reset_Functionality"/>
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_12_Verify_UI_Elements_On_Reset_Password_Page"/>
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_13_Verify_Screen_Resolution_Size"/>
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_11_Verify_Reset_Password_Functionality_With_Expired_Reset_Link"/>
+      
+      <!-- Barcode Batches-->
+      <class name="Tims.Barcode_Batches_Test_Cases.TC_16_Verify_Behavior_When_The_Count_Field_Contains_A_Value_Of_0"/>
+      <class name="Tims.Barcode_Batches_Test_Cases.TC_01_Verify_The_Presence_Of_Create_Blood_Batch_Button_On_The_Barcode_Batches_Page"/>
+      <class name="Tims.Barcode_Batches_Test_Cases.TC_01_DNA_Verify_The_Presence_Of_Create_DNA_Batch_Button"/>
+      <class name="Tims.Barcode_Batches_Test_Cases.TC_14_Verify_The_Form_Title_Is_Create_Blood_Batch"/>
+      
+      <!-- SH Test-->
+      <class name="Tims.SH_Test_Cases.TC_03_Verify_Test_Kit_Status_When_Only_Primary_Result_Is_Uploaded_SYPH_Not_Detected_HIV_Unconfirmed_Reactive"/>
+      <class name="Tims.SH_Test_Cases.TC_11_Verify_Test_Kit_Status_When_Both_Primary_And_Secondary_Result_Is_Uploaded"/>
+      <class name="Tims.SH_Test_Cases.TC_01_Verify_Test_Kit_Status_When_Only_Primary_Result_Is_Uploaded_SYPH_Not_Detected_HIV_Not_Detected"/>
+      <class name="Tims.SH_Test_Cases.TC_07_Verify_Test_Kit_Status_When_Only_Secondary_Result_Is_Uploaded_CLA_Detected_GON_Unconfirmed_Reactive"/>
+      <class name="Tims.SH_Test_Cases.TC_04_Verify_Test_Kit_Status_When_Only_Primary_Result_Is_Uploaded_SYPH_Unconfirmed_Reactive_HIV_Unconfirmed_Reactive"/>
+      <class name="Tims.SH_Test_Cases.TC_08_Verify_Test_Kit_Status_When_Only_Secondary_Result_Is_Uploaded_CLA_Not_Detected_GON_Unconfirmed_Reactive"/>
+      <class name="Tims.SH_Test_Cases.TC_06_Verify_Test_Kit_Status_When_Only_Secondary_Result_Is_Uploaded_CLA_Not_Detected_GON_Not_Detected"/>
+      <class name="Tims.SH_Test_Cases.TC_09_Verify_Test_Kit_Status_When_Only_Secondary_Result_Is_Uploaded_CLA_Detected_GON_Not_Detected"/>
+      <class name="Tims.SH_Test_Cases.TC_02_Verify_Test_Kit_Status_When_Only_Primary_Result_Is_Uploaded_SYPH_Unconfirmed_Reactive_HIV_Not_Detected"/>
+      <class name="Tims.SH_Test_Cases.TC_05_Verify_Test_Kit_Status_When_Only_Secondary_Result_Is_Uploaded_CLA_Detected_GON_Detected"/>
+      <class name="Tims.SH_Test_Cases.TC_10_Verify_Test_Kit_Status_When_Only_Secondary_Result_Is_Uploaded_CLA_Not_Detected_GON_Detected"/>
+      
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

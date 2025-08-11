@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <parameter name="headless" value="true"/>
+  <test thread-count="5" name="Test(failed)">
+    <classes>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_02_And_03_Verify_Successful_Account_Creation_With_Valid_Data">
+        <methods>
+          <include name="beforeClass"/>
+          <include name="TC_02_Verify_successful_account_creation_with_valid_data"/>
+          <include name="afterEachMethod"/>
+          <include name="beforeEachMethod"/>
+          <include name="beforeSuite"/>
+          <include name="afterClass"/>
+          <include name="afterSuite"/>
+          <include name="TC_03_Verify_account_created_via_email_link"/>
+        </methods>
+      </class> <!-- Dashboard.Create_Account_Test_Cases.TC_02_And_03_Verify_Successful_Account_Creation_With_Valid_Data -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->

@@ -17,4 +17,5 @@ public class WebCommonPath {
 	public static String bloodHormoneMenopause = System.getProperty("user.dir") + "/TestData/BloodHormoneMenopause.csv";
 	public static String dnaWeight = System.getProperty("user.dir") + "/TestData/DNAWeight.csv";
 	public static String createKit_csv = System.getProperty("user.dir") + "/TestData/CreateKitCsv.csv";
+	public static String thyroidProfileResults = System.getProperty("user.dir") + "/TestData/ThyroidProfileResults.csv";
 }

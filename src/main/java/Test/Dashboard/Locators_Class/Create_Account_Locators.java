@@ -133,7 +133,7 @@ public class Create_Account_Locators {
 		return labelPassword;
 	}
 
-	@FindBy(xpath = "//label[normalize-space()='Marketing consent']")
+	@FindBy(xpath = "//label[contains(text(),'like to get health tips, product updates,')]")
 	private WebElement labelMarketingConsent;
 
 	public WebElement get_labelMarketingConsent() {

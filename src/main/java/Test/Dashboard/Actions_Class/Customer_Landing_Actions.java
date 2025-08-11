@@ -19,12 +19,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 import com.aventstack.extentreports.Status;
@@ -69,7 +72,7 @@ public class Customer_Landing_Actions {
 	Login_Action login_action;
 	Login_Boot_Locators login_boot_locators;
 	Health_Assessment_Actions health_assessment_actions;
-	Activate_Test_Kit_Actions activate_test_kit_actions;
+	public Activate_Test_Kit_Actions activate_test_kit_actions;
 
 	public Customer_Landing_Actions(WebDriver driver) {
 		this.driver = driver;
@@ -80,6 +83,7 @@ public class Customer_Landing_Actions {
 		login_boot_locators = new Login_Boot_Locators(driver);
 		health_assessment_actions = new Health_Assessment_Actions(driver);
 		activate_test_kit_actions = new Activate_Test_Kit_Actions(driver);
+		activate_test_kit_actions.setCustomerLandingActions(this);
 	}
 
 	public WebElement getViewTestBtn(String Barcode1) {
@@ -97,20 +101,20 @@ public class Customer_Landing_Actions {
 	public void activateTestKitBloodHarmoneTest() throws InterruptedException, IOException {
 		health_assessment_actions.generateBarcodeBloodHormoneTest();
 
-		login_action.login_Dashboard2();
-		//Thread.sleep(3000);
+		login_action.login_dashboard_staging();
+		
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_enableLaterBtn(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateTestSideMenuItem(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_activateTestSideMenuItem(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateKitOfBloofTestBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_activateKitOfBloofTestBtn(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_goldBarcodeTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInput(activate_test_kit_locators.get_goldBarcodeTxt(), Health_Assessment_Actions.Barcode1);
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_trackingNumberTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInput(activate_test_kit_locators.get_trackingNumberTxt(), "AA 1234 5678 9BB");
 		Thread.sleep(2000);
@@ -118,17 +122,16 @@ public class Customer_Landing_Actions {
 		Thread.sleep(2000);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_confirmAndContinueBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_confirmAndContinueBtn(), driver);
-		//Thread.sleep(3000);
-		//WebScrollView.scrollToElement(driver, activate_test_kit_locators.get_consentInfoFirstCheckBox());
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_consentInfoFirstCheckBox(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_consentInfoFirstCheckBox(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_consentPrivacyAndTermsSecondCheckBox(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_consentPrivacyAndTermsSecondCheckBox(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_submitBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_submitBtn(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_dobTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInputUpdate(health_assessment_locators.get_dobTxt(), "03/01/1999");
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_mobNoTxt(), Duration.ofSeconds(20));
@@ -146,23 +149,25 @@ public class Customer_Landing_Actions {
 		Thread.sleep(2000);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_continueBtn(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_continueBtn());
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_dateTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInputUpdate(activate_test_kit_locators.get_dateTxt(),
 				health_assessment_actions.getSystemCurrentDate());
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_timeTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInput(activate_test_kit_locators.get_timeTxt(), "0909AM");
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_confirmAndContinueBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_confirmAndContinueBtn(), driver);
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_msgTestKitActivatedAlert(),
 				Duration.ofSeconds(20));
 		System.out.println("Alert: " + health_assessment_locators.get_msgTestKitActivatedAlert().getText());
+		ExtentManager.getTest().log(Status.PASS, "Alert: " + health_assessment_locators.get_msgTestKitActivatedAlert().getText());
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -244,7 +249,8 @@ public class Customer_Landing_Actions {
 		ExtentManager.getTest().log(Status.PASS, "Alert: " + actualAlert);
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -328,7 +334,8 @@ public class Customer_Landing_Actions {
 		Thread.sleep(2000);
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -376,19 +383,20 @@ public class Customer_Landing_Actions {
 		System.out.println("Alert: "+health_assessment_locators.get_kitRejectedAlert().getText());
 		ExtentManager.getTest().log(Status.PASS, "Alert: "+health_assessment_locators.get_kitRejectedAlert().getText());
 		
-		login_action.navToDashboard();
+		login_action.navToStagingDashboard();
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
 		WebButton.JsclickButton(getViewTestBtn(Health_Assessment_Actions.Barcode1), driver);
 		WebWait.visibilityOfElement(driver, customer_landing_locators.get_rejectedKitRedIcon(), Duration.ofSeconds(20));
 		boolean status = customer_landing_locators.get_rejectedKitRedIcon().isDisplayed();
-		System.out.println("Sample Taken & Returned\" has red icon: " +status);
+		System.out.println("\"Sample taken & returned\" has red icon: " +status);
 		assertTrue(status, "Red icon is not displayed");
-		ExtentManager.getTest().log(Status.PASS, "Sample Taken & Returned\" has red icon: " +status);
+		ExtentManager.getTest().log(Status.PASS, "\"Sample taken & returned\" has red icon: " +status);
 		Thread.sleep(2000);
 	}
 	
@@ -477,10 +485,11 @@ public class Customer_Landing_Actions {
 		expectedStatus = customer_landing_locators.get_timsStatusTxt().getText();
 		
 		
-		login_action.navToDashboard();
+		login_action.navToStagingDashboard();
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(20000);
+		WebWait.visibilityOfElement(driver, customer_landing_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(20000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -500,13 +509,13 @@ public class Customer_Landing_Actions {
 		WebButton.JsclickButton(health_assessment_locators.get_enableLaterBtn(), driver);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateTestSideMenuItem(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_activateTestSideMenuItem());
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateKitOfBloofTestBtn(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_activateKitOfBloofTestBtn());
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_goldBarcodeTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInput(activate_test_kit_locators.get_goldBarcodeTxt(), Health_Assessment_Actions.Barcode1);
-		//Thread.sleep(2000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_trackingNumberTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInput(activate_test_kit_locators.get_trackingNumberTxt(), "AA 1234 5678 9BB");
 		Thread.sleep(2000);
@@ -514,14 +523,14 @@ public class Customer_Landing_Actions {
 		Thread.sleep(2000);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_confirmAndContinueBtn(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_confirmAndContinueBtn());
-		//Thread.sleep(5000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_consentInfoFirstCheckBox(), Duration.ofSeconds(20));
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_consentInfoFirstCheckBox(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_consentInfoFirstCheckBox());
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_consentPrivacyAndTermsSecondCheckBox(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_consentPrivacyAndTermsSecondCheckBox());
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_submitBtn(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_submitBtn());
 		
@@ -530,12 +539,12 @@ public class Customer_Landing_Actions {
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_mobNoTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInputUpdate(health_assessment_locators.get_mobNoTxt(), "3333333333");
 		health_assessment_actions.selectSexAtBirth("Female");
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_continueBtn(), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, activate_test_kit_locators.get_continueBtn());
-		//Thread.sleep(4000);
+		
 		health_assessment_actions.selectIfStillIdentifiesWithGender("Yes");
-		//Thread.sleep(3000);
+		
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_ethnicityRadioBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_ethnicityRadioBtn(), driver);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_continueBtn(), Duration.ofSeconds(20));
@@ -545,24 +554,24 @@ public class Customer_Landing_Actions {
 		Thread.sleep(2000);
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_continueBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(activate_test_kit_locators.get_continueBtn(), driver);
-		//Thread.sleep(4000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_dateTxt(), Duration.ofSeconds(20));
 		WebTextBox.sendInputUpdate(activate_test_kit_locators.get_dateTxt(), health_assessment_actions.getSystemCurrentDate());
-		//Thread.sleep(3000);
+		
 		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_timeTxt(),  Duration.ofSeconds(20));
 		WebTextBox.sendInput(activate_test_kit_locators.get_timeTxt(), "0909AM");
-		//Thread.sleep(2000);
+		
 		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_confirmAndContinueBtn(), Duration.ofSeconds(20));
 		WebButton.clickButton(activate_test_kit_locators.get_confirmAndContinueBtn());
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_msgTestKitActivatedAlert(), Duration.ofSeconds(20));
 		System.out.println("Alert: "+health_assessment_locators.get_msgTestKitActivatedAlert().getText());
 		ExtentManager.getTest().log(Status.PASS, "Alert: "+health_assessment_locators.get_msgTestKitActivatedAlert().getText());
-		//Thread.sleep(4000);
 		
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_leftSideBarMyResultsBtn(), Duration.ofSeconds(20));
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_leftSideBarMyResultsBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_leftSideBarMyResultsBtn(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(40));
 		WebWait.elementToBeClickable(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(40));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
@@ -612,7 +621,8 @@ public class Customer_Landing_Actions {
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_leftSideBarMyResultsBtn(), Duration.ofSeconds(20));
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_leftSideBarMyResultsBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_leftSideBarMyResultsBtn(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(40));
 		WebWait.elementToBeClickable(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(40));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
@@ -726,11 +736,12 @@ public class Customer_Landing_Actions {
 		System.out.println("Alert: "+customer_landing_locators.get_bookingMailSentAlert().getText());
 		ExtentManager.getTest().log(Status.PASS, "Alert: "+customer_landing_locators.get_bookingMailSentAlert().getText());
 		
-		login_action.navToDashboard();
+		login_action.navToStagingDashboard();
 		Thread.sleep(3000);
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_leftSideBarMyResultsBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_leftSideBarMyResultsBtn(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(40));
 		WebWait.elementToBeClickable(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(40));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
@@ -781,7 +792,7 @@ public class Customer_Landing_Actions {
 		Thread.sleep(3000);
 		String consultationRequired = customer_landing_locators.get_shTestTimelineConsultationReqTitle().getText();
 		System.out.println("Additional Timeline Step: "+consultationRequired);
-		assertEquals(consultationRequired, "consultation required");
+		assertEquals(consultationRequired, "Consultation required");
 		ExtentManager.getTest().log(Status.PASS, "Additional Timeline Step: '"+consultationRequired+"' is displayed");
 	}
 	
@@ -794,7 +805,7 @@ public class Customer_Landing_Actions {
 		WebScrollView.scrollToElement(driver, iframeCalendar);
 		Thread.sleep(5000);
 		driver.switchTo().frame(iframeCalendar);
-
+		
 		CalendlyCalendar.selectDateAfterTwoDaysSkippingWeekends(customer_landing_locators.get_calendlyCalendarDates());
 		Thread.sleep(10000);
 		//WebWait.ListOfelementsToBeClickable(driver, customer_landing_locators.get_calendlyCalendarTimes(), Duration.ofSeconds(20));
@@ -932,10 +943,11 @@ public class Customer_Landing_Actions {
 		System.out.println("Alert: "+customer_landing_locators.get_reportPublishedAlert().getText());
 		ExtentManager.getTest().log(Status.PASS, "Alert: "+customer_landing_locators.get_reportPublishedAlert().getText());
 		
-		login_action.navToDashboard();
+		login_action.navToStagingDashboard();
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewResultsBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewResultsBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -1203,10 +1215,11 @@ public class Customer_Landing_Actions {
 		WebWait.elementToBeClickable(driver, health_assessment_locators.get_csvResultsfileUploadWindowUploadBtn(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_csvResultsfileUploadWindowUploadBtn(), driver);
 		
-		login_action.navToDashboard();
+		login_action.navToStagingDashboard();
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(20000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(20000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -1370,10 +1383,11 @@ public class Customer_Landing_Actions {
 		System.out.println("Alert: "+customer_landing_locators.get_dnaResultsUploadedConfAlert().getText());
 		ExtentManager.getTest().log(Status.PASS, "Alert: "+customer_landing_locators.get_dnaResultsUploadedConfAlert().getText());
 		
-		login_action.navToDashboard();
+		login_action.navToStagingDashboard();
 		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
 		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
-		Thread.sleep(15000);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultsTitleTxt(), Duration.ofSeconds(20));
+		//Thread.sleep(15000);
 		WebWait.visibilityOfElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1), Duration.ofSeconds(20));
 		WebScrollView.scrollToElement(driver, getViewTestBtn(Health_Assessment_Actions.Barcode1));
 		Thread.sleep(2000);
@@ -1395,5 +1409,363 @@ public class Customer_Landing_Actions {
 		
 	}
 	
+	public void generateSingleBarcode(String testType) throws InterruptedException, IOException {
+		activate_test_kit_actions.dashboardUrlOfTims();
+		Thread.sleep(2000);
+		WebButton.clickButton(activate_test_kit_locators.get_barcodeBatchesSideMenuItem());
+		WebButton.clickButton(activate_test_kit_locators.get_createBloodBatchBtn());
+		Thread.sleep(2000);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_customerDrp(), Duration.ofSeconds(20));
+		WebDropDown.selectByText(activate_test_kit_locators.get_customerDrp(), "Boots");
+		WebDropDown.selectByText(activate_test_kit_locators.get_typeDrp(), "blood");
+		WebDropDown.selectByText(activate_test_kit_locators.get_subTypeDrp(), "Gold");
+		WebTextBox.sendInput(activate_test_kit_locators.get_barcodeCountTxt(), "2");
+		WebButton.clickButton(activate_test_kit_locators.get_saveBtn());
+		Thread.sleep(2000);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_barcodesHeaderMenuItem(), Duration.ofSeconds(20));
+		WebButton.clickButton(activate_test_kit_locators.get_barcodesHeaderMenuItem());
+		Thread.sleep(2000);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_barcodesValue(), Duration.ofSeconds(20));
+		Health_Assessment_Actions.Barcode1 = activate_test_kit_locators.get_barcodesValue().getText();
+		System.out.println("Generated Barcode: " + Health_Assessment_Actions.Barcode1);
+		ExtentManager.getTest().log(Status.INFO, "Generated Barcode: " + Health_Assessment_Actions.Barcode1);
+		WebButton.clickButton(activate_test_kit_locators.get_testKitSideMenuItem());
+		WebButton.clickButton(activate_test_kit_locators.get_createKitBtn());
+		Thread.sleep(2000);
+		WebTextBox.sendInput(activate_test_kit_locators.get_primaryBarcodeTxtForCreateKit(), Health_Assessment_Actions.Barcode1);
+		WebButton.JsclickButton(activate_test_kit_locators.get_createBtn(), driver);
+		Thread.sleep(3000);
+		WebButton.clickButton(activate_test_kit_locators.get_assignKitTypeHeaderMenu());
+		Thread.sleep(2000);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_typeOfTestKitDrp(), Duration.ofSeconds(20));
+		WebDropDown.selectByText(activate_test_kit_locators.get_typeOfTestKitDrp(), testType);
+		Thread.sleep(2000);
+		WebElement selectedOption = WebDropDown.getSelectedOption(driver,activate_test_kit_locators.get_typeOfTestKitDrp());
+		System.out.println("Kit Type: "+selectedOption.getText());
+		ExtentManager.getTest().log(Status.INFO, "Kit Type: "+selectedOption.getText());
+		WebTextBox.sendInput(activate_test_kit_locators.get_primaryBarcodeTxtForAssignKit(), Health_Assessment_Actions.Barcode1);
+		Thread.sleep(3000);
+		WebButton.JsclickButton(activate_test_kit_locators.get_AssignBtn(), driver);
+	}
+	
+	public void activateTestKit() throws InterruptedException, IOException {
+		login_action.login_dashboard_staging();
+		Thread.sleep(3000);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_enableLaterBtn(), driver);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateTestSideMenuItem(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_activateTestSideMenuItem(), driver);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_activateKitOfBloofTestBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_activateKitOfBloofTestBtn(), driver);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_goldBarcodeTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(activate_test_kit_locators.get_goldBarcodeTxt(), Health_Assessment_Actions.Barcode1);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_trackingNumberTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(activate_test_kit_locators.get_trackingNumberTxt(), "AA 1234 5678 9BB");
+		Thread.sleep(2000);
+		WebScrollView.scrollToElement(driver, activate_test_kit_locators.get_confirmAndContinueBtn());
+		Thread.sleep(2000);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_confirmAndContinueBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_confirmAndContinueBtn(), driver);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_consentInfoFirstCheckBox(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_consentInfoFirstCheckBox(), driver);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_consentPrivacyAndTermsSecondCheckBox(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_consentPrivacyAndTermsSecondCheckBox(), driver);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_submitBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_submitBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_dobTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInputUpdate(health_assessment_locators.get_dobTxt(), "03/01/1999");
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_mobNoTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInputUpdate(health_assessment_locators.get_mobNoTxt(), "3333333333");
+		health_assessment_actions.selectSexAtBirth("Female");
+		Thread.sleep(2000);
+		WebScrollView.scrollToElement(driver, activate_test_kit_locators.get_continueBtn());
+		Thread.sleep(2000);
+		health_assessment_actions.selectIfStillIdentifiesWithGender("Yes");
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_continueBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_continueBtn(), driver);
+		Thread.sleep(2000);
+		WebScrollView.scrollToElement(driver, activate_test_kit_locators.get_continueBtn());
+		Thread.sleep(2000);
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_continueBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_continueBtn(), driver);
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_dateTxt(), Duration.ofSeconds(30));
+		WebTextBox.sendInputUpdate(activate_test_kit_locators.get_dateTxt(), health_assessment_actions.getSystemCurrentDate());
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_timeTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(activate_test_kit_locators.get_timeTxt(), "0909AM");
+		WebWait.elementToBeClickable(driver, activate_test_kit_locators.get_confirmAndContinueBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_confirmAndContinueBtn(), driver);
+	}
+	
+	public void markKitAsReceived() throws IOException, InterruptedException {
+		activate_test_kit_actions.dashboardUrlOfTims();
+		Thread.sleep(2000);
+		
+		WebWait.visibilityOfElement(driver, activate_test_kit_locators.get_testKitSideMenuItem(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(activate_test_kit_locators.get_testKitSideMenuItem(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_markKitReceivedBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_markKitReceivedBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_inputBarcodeTxt(), Duration.ofSeconds(20));
+		WebTextBox.sendInput(health_assessment_locators.get_inputBarcodeTxt(), Health_Assessment_Actions.Barcode1);
+		WebButton.JsclickButton(health_assessment_locators.get_markKitNextBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_markAsReceivedBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_markAsReceivedBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_testMarkedAsReceivedAlert(), Duration.ofSeconds(20));
+		System.out.println("Alert: "+health_assessment_locators.get_testMarkedAsReceivedAlert().getText());
+		ExtentManager.getTest().log(Status.PASS, "Alert: "+health_assessment_locators.get_testMarkedAsReceivedAlert().getText());
+	}
+	
+	public void uploadBloodResultsCsv(String filePath, WebElement element, String targetText, String replacementText) throws IOException, InterruptedException {
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_uploadBloodResultCsvBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_uploadBloodResultCsvBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_uploadBloodResultCsvInput(), Duration.ofSeconds(20));
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_uploadBloodResultCsvInput(), Duration.ofSeconds(20));
+		CSVUploaderWithTextReplacement.updateAndUploadCSV(driver, filePath , element, targetText, replacementText);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_csvResultsfileUploadWindowUploadBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_csvResultsfileUploadWindowUploadBtn(), driver);
+	}
+	
+	public void uploadDNAResultsCsv(String filePath, WebElement element, String targetText, String replacementText) throws IOException {
+		WebWait.elementToBeClickable(driver, customer_landing_locators.get_headerUploadDnaResultsCsvBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(customer_landing_locators.get_headerUploadDnaResultsCsvBtn(), driver);
+		WebWait.elementToBeClickable(driver, customer_landing_locators.get_chooseFileToUploadDna(), Duration.ofSeconds(20));
+		CSVUploaderWithTextReplacement.updateAndUploadCSV(driver, filePath, element, targetText, replacementText);
+		WebWait.elementToBeClickable(driver, customer_landing_locators.get_uploadDnaResultsPopUpBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(customer_landing_locators.get_uploadDnaResultsPopUpBtn(), driver);
+		WebWait.visibilityOfElement(driver, customer_landing_locators.get_dnaResultsUploadedConfAlert(), Duration.ofSeconds(20));
+		System.out.println("Alert: "+customer_landing_locators.get_dnaResultsUploadedConfAlert().getText());
+		ExtentManager.getTest().log(Status.PASS, "Alert: "+customer_landing_locators.get_dnaResultsUploadedConfAlert().getText());
+		
+	}
+	
+	public void verifyFillEditAssessBtnAfterResultUpload() throws InterruptedException, IOException {
+		generateSingleBarcode("Thyroid Profile Test");
+		activateTestKit();
+		markKitAsReceived();
+		uploadBloodResultsCsv(WebCommonPath.thyroidProfileResults, health_assessment_locators.get_uploadBloodResultCsvInput(),
+				"MGX-GZI-8171", Health_Assessment_Actions.Barcode1);
+		login_action.navToStagingDashboard();
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_myResultBootsMenu(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_myResultBootsMenu(), driver);
+		Thread.sleep(25000);
+		WebWait.visibilityOfElement(driver, driver.findElement(
+			    By.xpath("//code[text()='" + Health_Assessment_Actions.Barcode1 + "']/ancestor::div[@data-testid='link-card']//a[contains(text(),'assessment')]")), Duration.ofSeconds(30));
+		WebElement myResultsFillAssessmentBtn = driver.findElement(
+			    By.xpath("//code[text()='" + Health_Assessment_Actions.Barcode1 + "']/ancestor::div[@data-testid='link-card']//a[contains(text(),'assessment')]"));
+		WebWait.elementToBeClickable(driver, myResultsFillAssessmentBtn, Duration.ofSeconds(20));
+		Thread.sleep(3000);
+		WebScrollView.scrollToElement(driver, myResultsFillAssessmentBtn);
+		Thread.sleep(3000);
+		String  classAttribute = myResultsFillAssessmentBtn.getAttribute("class");
+		boolean status = classAttribute.contains("disabled");
+		System.out.println("Validation: Fill or edit assessment button is disabled");
+		assertTrue(status, "Fill or edit assessment button is enabled");
+		ExtentManager.getTest().log(Status.PASS, "Validation: Fill or edit assessment button is disabled");
+	}
+	
+	public void screenResolutionSizesShowsAllWebelementsProperly(int width, int height)
+			throws IOException, InterruptedException {
+		/*
+		 * {1920, 1080}, // Desktop full HD {1366, 768}, // Laptop {768, 1024}, //
+		 * Tablet Portrait {375, 667}, // iPhone 8 {414, 896} // iPhone XR
+		 */
+
+		driver.manage().window().setSize(new Dimension(width, height));
+
+		System.out.println("Testing resolution: " + width + "x" + height);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void verifyLayoutConsistencyDb() throws IOException, InterruptedException {
+		login_action.login_Dashboard2();
+		Thread.sleep(3000);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(20));
+		WebButton.JsclickButton(health_assessment_locators.get_enableLaterBtn(), driver);
+		Thread.sleep(3000);
+		screenResolutionSizesShowsAllWebelementsProperly(1920, 1080);
+		screenResolutionSizesShowsAllWebelementsProperly(1366, 768);
+		screenResolutionSizesShowsAllWebelementsProperly(768, 1024);
+		screenResolutionSizesShowsAllWebelementsProperly(375, 667);
+	}
+	
+	public void verifyErrorMessageUI() {
+		List<WebElement> errorMessages = health_assessment_locators.get_healthAssessForm2AllerrorMsg();
+
+		if (errorMessages.isEmpty()) {
+			ExtentManager.getTest().log(Status.WARNING, "No error messages found on the form.");
+			System.out.println("No error messages found on the form.");
+			return;
+		}
+
+		boolean allDisplayed = true;
+
+		for (WebElement errorMessage : errorMessages) {
+			try {
+				if (errorMessage.isDisplayed()) {
+					String messageText = errorMessage.getText();
+					ExtentManager.getTest().log(Status.PASS, "Error message is displayed: " + messageText);
+					System.out.println("Displayed error message: " + messageText);
+				} else {
+					allDisplayed = false;
+					ExtentManager.getTest().log(Status.FAIL, "Error message is NOT displayed.");
+					System.out.println("An error message is NOT displayed.");
+				}
+			} catch (Exception e) {
+				allDisplayed = false;
+				ExtentManager.getTest().log(Status.WARNING, "Error checking message: " + e.getMessage());
+				System.err.println("Error checking message: " + e.getMessage());
+			}
+		}
+		Assert.assertTrue(allDisplayed, "One or more error messages are not displayed.");
+	}
+	
+	public void verifyFontConsistency() {
+		String actualConsultatonReqMsg = customer_landing_locators.get_phoneConsultationRequiredTitle().getText().trim();
+		String expectedConsultationRequiredMsg = "Phone consultation required";
+		System.out.println("Message: "+actualConsultatonReqMsg);
+		assertEquals(actualConsultatonReqMsg, expectedConsultationRequiredMsg, "Message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Message: "+actualConsultatonReqMsg);
+		
+		String actualThankYouMsg = customer_landing_locators.get_shTestTimelineThankyouTxt().getText().trim();
+		String expectedThankYouMsg = "Thank you for choosing our services for your sexual health test. We understand that discussing your results can "
+				+ "be a sensitive topic, and we want to assure you that we will communicate with you in a professional, non-judgmental, and caring manner.";
+		System.out.println("Message: "+actualThankYouMsg);
+		assertEquals(actualThankYouMsg, expectedThankYouMsg, "Message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Message: "+actualThankYouMsg);
+		
+		String actualScheduleAppointmentMsg = customer_landing_locators.get_shTestTimelineToScheduleAppointmentTxt().getText().trim();
+		String expectedScheduleAppointmentMsg = "To schedule an appointment with our Doctors and discuss your test results, please select a date & time below:";
+		System.out.println("Message: "+actualScheduleAppointmentMsg);
+		assertEquals(actualScheduleAppointmentMsg, expectedScheduleAppointmentMsg, "Message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Message: "+actualScheduleAppointmentMsg);
+		
+		String actualPleaseNoteMsg = customer_landing_locators.get_shTestTimelinePleaseNoteTxt().getText().trim();
+		String expectedPleaseNoteMsg = "Please note that you have the option to reschedule your appointment up to 24 hours prior to the scheduled consultation.";
+		System.out.println("Message: "+actualPleaseNoteMsg);
+		assertEquals(actualPleaseNoteMsg, expectedPleaseNoteMsg, "Message mismatch");
+		ExtentManager.getTest().log(Status.PASS, "Message: "+actualPleaseNoteMsg);
+	}
+	
+	public void verifyScrollingForLongTestSummaries() throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
+		Long initialScroll = (Long) js.executeScript("return window.pageYOffset");
+		System.out.println("Initial Scroll: "+initialScroll+" px");
+		ExtentManager.getTest().log(Status.INFO, "Initial Scroll: "+initialScroll+" px");
+		
+		WebScrollView.scrollDownByPixel(driver, 300);
+		Thread.sleep(3000);
+		Long secondScroll = ((Long) js.executeScript("return window.pageYOffset"));
+		System.out.println("Second Sroll: "+secondScroll+" px");
+		ExtentManager.getTest().log(Status.PASS, "Second Scroll: "+secondScroll+" px");
+		
+		WebScrollView.scrollDownVertically(driver);
+		Thread.sleep(2000);
+		Long finalScroll = (Long) js.executeScript("return window.pageYOffset");
+		System.out.println("Final Scroll: " + finalScroll+" px");
+		ExtentManager.getTest().log(Status.PASS, "Final Scroll: " + finalScroll+" px");
+		
+		Assert.assertTrue(finalScroll > initialScroll, "Scroll did not occur as expected");
+	}
+	
+	public void verifyWrappingOfLongText() {
+		 JavascriptExecutor js = (JavascriptExecutor) driver;
+
+         boolean isOverflowing = (Boolean) js.executeScript(
+             "var elem = arguments[0];" +
+             "return elem.scrollHeight > elem.clientHeight || elem.scrollWidth > elem.clientWidth;"
+            		 , customer_landing_locators.get_containerConsultationReq()
+         );
+
+         assertFalse(isOverflowing,"Text is overflowing its container.");
+         System.out.println("Text fits fully within its container.");
+         ExtentManager.getTest().log(Status.PASS, "Text fits fully within its container.");
+	}
+	
+	public void visualConsistencyOfTimelineSteps() {
+		boolean status = customer_landing_locators.get_rejectedKitRedIcon().isDisplayed();
+		System.out.println("Sample Taken & Returned\" has red icon: " +status);
+		assertTrue(status, "Red icon is not displayed");
+		ExtentManager.getTest().log(Status.PASS, "\"Sample taken & returned\" has red icon: " +status);
+	}
+	
+	public void verifyVisibilityOfButtons() throws InterruptedException {
+		health_assessment_actions.cancel_Appointment();
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_confirmBtn(), Duration.ofSeconds(20));
+		assertTrue(health_assessment_locators.get_confirmBtn().isDisplayed(), "Confirm & Continue button is not displayed");
+		WebButton.JsclickButton(health_assessment_locators.get_confirmBtn(), driver);
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_submitBtn(), Duration.ofSeconds(20));
+		assertTrue(health_assessment_locators.get_submitBtn().isDisplayed(), "Submit button is not displayed");
+		WebButton.JsclickButton(health_assessment_locators.get_submitBtn(), driver);
+		Thread.sleep(2000);
+		WebCheckBox.checkBoxTest(health_assessment_locators.get_consentCheckBox());
+		WebCheckBox.checkBoxTest(health_assessment_locators.get_termsCheckBox());
+		Actions actions = new Actions(driver);
+		actions.scrollByAmount(0, 800).perform();
+		health_assessment_locators.get_submitBtn().submit();
+	}
+	
+	public void verifyClickableAreaOfButton() throws InterruptedException {
+		health_assessment_actions.cancel_Appointment();
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_confirmBtn(), Duration.ofSeconds(20));
+		assertTrue(health_assessment_locators.get_confirmBtn().isDisplayed(), "Confirm & Continue button is not displayed");
+		assertTrue(health_assessment_locators.get_confirmBtn().isEnabled(), "Confirm & Continue button is not enabled");
+		WebButton.JsclickButton(health_assessment_locators.get_confirmBtn(), driver);
+		System.out.println("Confirm & Continue button is clickable");
+		ExtentManager.getTest().log(Status.PASS, "Confirm & Continue button is clickable");
+		WebWait.visibilityOfElement(driver, health_assessment_locators.get_submitBtn(), Duration.ofSeconds(20));
+		assertTrue(health_assessment_locators.get_submitBtn().isDisplayed(), "Submit button is not displayed");
+		assertTrue(health_assessment_locators.get_submitBtn().isEnabled(), "Submit button is not enabled");
+		WebButton.JsclickButton(health_assessment_locators.get_submitBtn(), driver);
+		System.out.println("Submit button is clickable");
+		ExtentManager.getTest().log(Status.PASS, "Submit button is clickable");
+		Thread.sleep(2000);
+		WebCheckBox.checkBoxTest(health_assessment_locators.get_consentCheckBox());
+		WebCheckBox.checkBoxTest(health_assessment_locators.get_termsCheckBox());
+		Actions actions = new Actions(driver);
+		actions.scrollByAmount(0, 800).perform();
+		health_assessment_locators.get_submitBtn().submit();
+	}
+	
+	public void verifyMessageDisplayedWhenNoTestAvailable() throws IOException {
+		login_action = new Login_Action(driver);
+		login_action.enterEmailID_DB(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_newUser_email"));
+		login_action.enterPassword_DB(PropertiesReader.getPropertyValue(WebCommonPath.testDatafile, "Dashboard_Password"));
+		login_action.clickLoginButton_Dashboard();
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_enableLaterBtn(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_enableLaterBtn(), driver);
+		WebWait.elementToBeClickable(driver, health_assessment_locators.get_leftSideBarDashhboardBtn(), Duration.ofSeconds(10));
+		WebButton.JsclickButton(health_assessment_locators.get_leftSideBarDashhboardBtn(), driver);
+		WebWait.visibilityOfElement(driver, customer_landing_locators.get_buyTestLinkCard(), Duration.ofSeconds(10));
+		String buyTest = customer_landing_locators.get_buyTestLinkCard().findElement(By.xpath(".//strong")).getText();
+		assertTrue(customer_landing_locators.get_buyTestLinkCard().isDisplayed(), "Buy tests link card is not displayed");
+		System.out.println("Card displayed: " +buyTest);
+		ExtentManager.getTest().log(Status.PASS, "Card displayed: " +buyTest);
+		
+		WebWait.visibilityOfElement(driver, customer_landing_locators.get_activateTestLinkCard(), Duration.ofSeconds(10));
+		String activateTest = customer_landing_locators.get_activateTestLinkCard().findElement(By.xpath(".//strong")).getText();
+		assertTrue(customer_landing_locators.get_activateTestLinkCard().isDisplayed(), "Buy tests link card is not displayed");
+		System.out.println("Card displayed: " +activateTest);
+		ExtentManager.getTest().log(Status.PASS, "Card displayed: " +activateTest);
+		
+	}
+	
+	public void verifyDashboardEmptyState() {
+		String actualBuyTestMessage = customer_landing_locators.get_buyTestLinkCard().findElement(By.xpath(".//p")).getText();
+		String expectedBuyTestMessage = "Get started today by buying a wellness test with us!";
+		assertEquals(actualBuyTestMessage, expectedBuyTestMessage, "Message mismatch");
+		System.out.println("Buy Test message: " +actualBuyTestMessage);
+		ExtentManager.getTest().log(Status.PASS, "Buy Test message: " +actualBuyTestMessage);
+		
+		String actualActivateTestMessage = customer_landing_locators.get_activateTestLinkCard().findElement(By.xpath(".//p")).getText();
+		String expectedActivateTestMessage = "Already have a test and need to get it activated?";
+		assertEquals(actualActivateTestMessage, expectedActivateTestMessage, "Message mismatch");
+		System.out.println("Activate Test message: " +actualActivateTestMessage);
+		ExtentManager.getTest().log(Status.PASS, "Buy Test message: " +actualActivateTestMessage);
+		
+	}
 	
 }

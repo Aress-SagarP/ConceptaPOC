@@ -2,6 +2,7 @@ package Test.Dashboard.Locators_Class;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -225,7 +226,7 @@ public class Activate_Test_Kit_Locators {
 		return placeholderTrackingNumberTxt;
 	}
 
-	@FindBy(xpath = "//input[@class='form-control is-invalid form-control']")
+	@FindBy(xpath = "//input[contains(@class, 'form-control is-invalid form-control')]")
 	private WebElement emptyFeildRequiredIcon;
 
 	public WebElement get_emptyFeildRequiredIcon() {
@@ -434,4 +435,97 @@ public class Activate_Test_Kit_Locators {
 	public WebElement get_contentOfHowToPage() {
 		return contentOfHowToPage;
 	}
+	
+	@FindBy(xpath = "//div[@class='invalid-feedback' and text()='Tracking number is required']")
+	private WebElement errorMsgTrackingNumRequired;
+
+	public WebElement get_errorMsgTrackingNumRequired() {
+		return errorMsgTrackingNumRequired;
+	}
+	
+	@FindBy(xpath = "//th[normalize-space()='Tracking number:']/following-sibling::td")
+	private WebElement trackingNumTimsTxt;
+
+	public WebElement get_trackingNumTimsTxt() {
+		return trackingNumTimsTxt;
+	}
+	
+	@FindBy(xpath = "//th[normalize-space()='Tracking number:']")
+	private WebElement trackingNumTimsLabel;
+
+	public WebElement get_trackingNumTimsLabel() {
+		return trackingNumTimsLabel;
+	}
+	
+	@FindBy(xpath = "//h4[contains(text(),'Tracking number')]/following-sibling::h5/code")
+	private WebElement trackingNumTestKitPageDb;
+
+	public WebElement get_trackingNumTestKitPageDb() {
+		return trackingNumTestKitPageDb;
+	}
+	
+	@FindBy(xpath = "//h4[contains(text(),'Tracking number')]")
+	private WebElement trackingNumFieldLabelTestKitPageDb;
+
+	public WebElement get_trackingNumFieldLabelTestKitPageDb() {
+		return trackingNumFieldLabelTestKitPageDb;
+	}
+	
+	@FindBy(xpath = "//button[contains(text(),'Upload kit CSV')]")
+	private WebElement uploadCsvKitButton;
+
+	public WebElement get_uploadCsvKitButton() {
+	  return uploadCsvKitButton;
+	}
+	
+	@FindBy(xpath = "(//button[@type='submit'])[5]")
+	private WebElement uploadCsvKitInsideButton;
+
+	public WebElement get_uploadCsvKitInsideButton() {
+	  return uploadCsvKitInsideButton;
+	}
+	
+	@FindBy(xpath = "(//input[@name='kit_csv'])[3]")
+	private WebElement uploadCsvChooseFileOptionTxt;
+
+	public WebElement get_uploadCsvChooseFileOptionTxt() {
+	  return uploadCsvChooseFileOptionTxt;
+	}
+	
+	@FindBy(xpath = "//table[@id='barcode-table']//td/a")
+	private List<WebElement> allGeneratedBarcodes;
+
+	public List<WebElement> get_allGeneratedBarcodes() {
+	  return allGeneratedBarcodes;
+	}
+	
+	@FindBy(xpath = "//div[@id='statusMessageContainer']/span[contains(text(),'CSV uploaded')]")
+	private WebElement csvuploadedSuccessMultiBarcodeToaster;
+
+	public WebElement get_csvuploadedSuccessMultiBarcodeToaster() {
+	  return csvuploadedSuccessMultiBarcodeToaster;
+	}
+	
+	@FindBy(xpath = "//div[normalize-space()='Test kit activated successfully!']")
+	private WebElement kitActivatedToaster;
+
+	public WebElement get_kitActivatedToaster() {
+	  return kitActivatedToaster;
+	}
+	
+	@FindBy(xpath = "//a[@href='/tests/sh/activate' and text()='Activate kit']")
+	private WebElement shTestActivateKitBtn;
+
+	public WebElement get_shTestActivateKitBtn() {
+	  return shTestActivateKitBtn;
+	}
+	
+	@FindBy(xpath = "//button[@type='button' and text()='Close']")
+	private WebElement shTestWarningCloseBtn;
+
+	public WebElement get_shTestWarningCloseBtn() {
+	  return shTestWarningCloseBtn;
+	}
+	
+	
 }

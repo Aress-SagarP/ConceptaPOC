@@ -1,6 +1,7 @@
 package Wrappers;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -159,4 +160,16 @@ public class WebDropDown {
             return null; // Or throw exception depending on your framework style
         }
     }
+	
+	 public static List<String> getDropdownOptions(WebDriver driver, WebElement dropdownElement) {
+	        Select select = new Select(dropdownElement);
+	        List<WebElement> options = select.getOptions();
+	        List<String> optionTexts = new ArrayList<>();
+
+	        for (WebElement option : options) {
+	            optionTexts.add(option.getText().trim());
+	        }
+
+	        return optionTexts;
+	    }
 }

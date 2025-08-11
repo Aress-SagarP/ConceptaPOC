@@ -37,7 +37,7 @@ public class Create_Account_Actions extends BaseClass {
 	}
 
 	public void dashboardUrl() throws IOException {
-		String urlKey = determineUrlKey("dashboard_automation_resetpassword_staging");
+		String urlKey = determineUrlKey("dashboard_automation_staging");
 		driver.get(urlKey);
 	}
 
