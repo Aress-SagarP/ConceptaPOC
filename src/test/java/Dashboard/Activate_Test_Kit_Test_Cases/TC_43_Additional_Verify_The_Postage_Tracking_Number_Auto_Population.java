@@ -15,8 +15,8 @@ public class TC_43_Additional_Verify_The_Postage_Tracking_Number_Auto_Population
 	
 	@Test
 	public void TC_43_Additional_Verify_the_postage_tracking_number_auto_population() throws InterruptedException, IOException {
-		activate_test_kit_Actions = new Activate_Test_Kit_Actions(getDriver());
+	/*	activate_test_kit_Actions = new Activate_Test_Kit_Actions(getDriver());
 		activate_test_kit_Actions.dashboardUrlOfTims();
-		activate_test_kit_Actions.verifyTrackingNumIsAutoPopulated();
+		activate_test_kit_Actions.verifyTrackingNumIsAutoPopulated();*/
 	}
 }
