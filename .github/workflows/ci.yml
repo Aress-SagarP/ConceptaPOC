@@ -22,12 +22,9 @@ jobs:
     
     # Run first TestNG suite
     - name: Run Test Suite 1
-      run: mvn clean test "-Dsurefire.suiteXmlFiles=login_logout.xml"
+      run: mvn clean test "-Dsurefire.suiteXmlFiles=testngFullSuite.xml"
 
-    # Run second TestNG suite
-    - name: Run Test Suite 2
-      run: mvn clean test "-Dsurefire.suiteXmlFiles=Reset_Password.xml"
-
+   
     - name: Upload Latest TestNG Report
       if: always()
       run: |
