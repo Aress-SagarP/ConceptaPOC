@@ -19,6 +19,12 @@ jobs:
       with:
         java-version: '24'
         distribution: 'temurin'
+
+    - name: Set timezone to Asia/Kolkata
+      run: |
+        tzutil /s "India Standard Time"
+        Get-Date
+      shell: pwsh
     
     # Run first TestNG suite
     - name: Run Test Suite 1
