@@ -54,37 +54,14 @@ jobs:
 
     - name: Send Email with TestNG Report
       if: always()
-      shell: pwsh
-      env:
-        EMAIL_FROM: ${{ secrets.EMAIL_USERNAME }}
-        EMAIL_TO: ${{ secrets.EMAIL_TO }}
-        EMAIL_SUBJECT: 'TestNG Report'
-        SMTP_SERVER: 'smtp.gmail.com'
-        SMTP_PORT: '587'
-        SMTP_USER: ${{ secrets.EMAIL_USERNAME }}
-        SMTP_PASS: ${{ secrets.EMAIL_PASSWORD }}
-      run: |
-        $report = Get-ChildItem -Path downloaded-report/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-        if ($null -eq $report) {
-          Write-Error "No Extend report found in downloaded-report/ folder."
-          exit 1
-        }
-
-        Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
-        Install-Module -Name MailKit -Force -Scope CurrentUser
-
-        $smtpClient = New-Object MailKit.Net.Smtp.SmtpClient
-        $mimeMessage = New-Object MimeKit.MimeMessage
-        $mimeMessage.From.Add($env:EMAIL_FROM)
-        $mimeMessage.To.Add($env:EMAIL_TO)
-        $mimeMessage.Subject = $env:EMAIL_SUBJECT
-
-        $builder = New-Object MimeKit.BodyBuilder
-        $builder.HtmlBody = "Please find attached the latest TestNG report."
-        $builder.Attachments.Add($report.FullName) | Out-Null
-        $mimeMessage.Body = $builder.ToMessageBody()
-
-        $smtpClient.Connect($env:SMTP_SERVER, [int]$env:SMTP_PORT, [MailKit.Security.SecureSocketOptions]::StartTls)
-        $smtpClient.Authenticate($env:SMTP_USER, $env:SMTP_PASS)
-        $smtpClient.Send($mimeMessage)
-        $smtpClient.Disconnect($true)
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 587
+        username: ${{ secrets.EMAIL_USERNAME }}
+        password: ${{ secrets.EMAIL_PASSWORD }}
+        subject: TestNG Report
+        to: ${{ secrets.EMAIL_TO }}
+        from: ${{ secrets.EMAIL_USERNAME }}
+        body: Please find attached the latest TestNG report.
+        attachments: downloaded-report/*.html
