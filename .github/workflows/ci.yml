@@ -70,5 +70,21 @@ jobs:
           exit 1
         }
 
-        $credential = New-Object System.Management.Automation.PSCredential($env:SMTP_USER, (ConvertTo-SecureString $env:SMTP_PASS -AsPlainText -Force))
-        Send-MailMessage -From $env:EMAIL_FROM -To $env:EMAIL_TO -Subject $env:EMAIL_SUBJECT -SmtpServer $env:SMTP_SERVER -Port $env:SMTP_PORT -UseSsl -Credential $credential -Attachments $report.FullName -Body "Please find attached the latest TestNG report." -BodyAsHtml
+        Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
+        Install-Module -Name MailKit -Force -Scope CurrentUser
+
+        $smtpClient = New-Object MailKit.Net.Smtp.SmtpClient
+        $mimeMessage = New-Object MimeKit.MimeMessage
+        $mimeMessage.From.Add($env:EMAIL_FROM)
+        $mimeMessage.To.Add($env:EMAIL_TO)
+        $mimeMessage.Subject = $env:EMAIL_SUBJECT
+
+        $builder = New-Object MimeKit.BodyBuilder
+        $builder.HtmlBody = "Please find attached the latest TestNG report."
+        $builder.Attachments.Add($report.FullName) | Out-Null
+        $mimeMessage.Body = $builder.ToMessageBody()
+
+        $smtpClient.Connect($env:SMTP_SERVER, [int]$env:SMTP_PORT, [MailKit.Security.SecureSocketOptions]::StartTls)
+        $smtpClient.Authenticate($env:SMTP_USER, $env:SMTP_PASS)
+        $smtpClient.Send($mimeMessage)
+        $smtpClient.Disconnect($true)
