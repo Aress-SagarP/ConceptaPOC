@@ -27,7 +27,7 @@ jobs:
       shell: pwsh
     
     - name: Run TestNG Suite
-      run: mvn clean test -Dsurefire.suiteXmlFiles=testngFullSuite.xml
+      run: mvn clean test "-Dsurefire.suiteXmlFiles=testngFullSuite.xml"
 
     - name: Prepare Latest TestNG Report
       if: always()
