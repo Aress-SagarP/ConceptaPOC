@@ -26,37 +26,22 @@ jobs:
         Get-Date
       shell: pwsh
     
-    # Run first TestNG suite
-    - name: Run Test Suite 1
-      run: mvn clean test "-Dsurefire.suiteXmlFiles=testngFullSuite.xml"
+    - name: Run TestNG Suite
+      run: mvn clean test -Dsurefire.suiteXmlFiles=testngFullSuite.xml
 
-   
-    - name: Upload Latest TestNG Report
+    - name: Prepare Latest TestNG Report
       if: always()
       run: |
-        $report = Get-ChildItem -Path reports/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        $report = Get-ChildItem -Path test-output/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
         if ($null -eq $report) {
-          Write-Error "No HTML report found in reports/ folder."
+          Write-Error "No HTML report found in test-output/ folder."
           exit 1
         }
         echo "Latest report: $($report.Name)"
         mkdir latest-report
         Copy-Item $report.FullName -Destination latest-report/
+        Compress-Archive -Path latest-report/* -DestinationPath latest-report.zip
       shell: pwsh
-
-    - name: Upload latest report artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: latest-testng-report
-        path: latest-report/
-
-    - name: Download artifact
-      if: always()
-      uses: actions/download-artifact@v4
-      with:
-        name: latest-testng-report
-        path: downloaded-report
 
     - name: Send Email with TestNG Report
       if: always()
@@ -66,8 +51,14 @@ jobs:
         server_port: 587
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
-        subject: TestNG Report
+        subject: Concepta Automation Report
         to: ${{ secrets.EMAIL_TO }}
         from: ${{ secrets.EMAIL_USERNAME }}
-        body: Please find attached the latest TestNG report.
-        attachments: downloaded-report/*.html
+        body: |
+          Hi Team,
+
+          Please find attached the latest TestNG execution report.
+
+          Regards,  
+          Sagar Pawar
+        attachments: latest-report.zip
