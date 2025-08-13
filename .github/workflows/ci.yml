@@ -40,8 +40,21 @@ jobs:
         echo "Latest report: $($report.Name)"
         mkdir latest-report
         Copy-Item $report.FullName -Destination latest-report/
-        Compress-Archive -Path latest-report/* -DestinationPath latest-report.zip
-      shell: pwsh
+        shell: pwsh
+
+    - name: Upload latest report artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: latest-testng-report
+        path: latest-report/
+
+    - name: Download artifact
+      if: always()
+      uses: actions/download-artifact@v4
+      with:
+        name: latest-testng-report
+        path: downloaded-report
 
     - name: Send Email with TestNG Report
       if: always()
@@ -61,4 +74,4 @@ jobs:
 
           Regards,  
           Sagar Pawar
-        attachments: latest-report.zip
+        attachments: downloaded-report/*.html
