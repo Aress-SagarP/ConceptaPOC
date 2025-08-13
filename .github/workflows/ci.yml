@@ -11,69 +11,83 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # 1. Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up JDK 24
-      uses: actions/setup-java@v4
-      with:
-        java-version: '24'
-        distribution: 'temurin'
+      # 2. Set up Java JDK
+      - name: Set up JDK 24
+        uses: actions/setup-java@v4
+        with:
+          java-version: '24'
+          distribution: 'temurin'
 
-    - name: Set timezone to Asia/Kolkata
-      run: |
-        tzutil /s "India Standard Time"
-        Get-Date
-      shell: pwsh
-    
-    - name: Run TestNG Suite
-      run: mvn clean test "-Dsurefire.suiteXmlFiles=testngFullSuite.xml"
+      # 3. Set Timezone to IST
+      - name: Set timezone to Asia/Kolkata
+        run: |
+          tzutil /s "India Standard Time"
+          Get-Date
+        shell: pwsh
 
-    - name: Prepare Latest TestNG Report
-      if: always()
-      shell: pwsh
-      run: |
-        $report = Get-ChildItem -Path test-output -Filter *.html -Recurse | 
-                  Sort-Object LastWriteTime -Descending | 
-                  Select-Object -First 1
-        if ($null -eq $report) {
-          Write-Error "No HTML report found in test-output folder."
-          exit 1
-        }
-        Write-Host "Latest report: $($report.FullName)"
-        mkdir latest-report
-        Copy-Item $report.FullName -Destination latest-report/
+      # 4. Run Maven TestNG suite (will also generate Extent report)
+      - name: Run TestNG Suite
+        run: mvn clean test "-Dsurefire.suiteXmlFiles=testngFullSuite.xml"
 
-    - name: Upload latest report artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: latest-testng-report
-        path: latest-report/
+      # 5. Collect latest TestNG & Extent reports from workflow run
+      - name: Collect Latest Reports from Workflow Run
+        if: always()
+        shell: pwsh
+        run: |
+          mkdir latest-report
 
-    - name: Download artifact
-      if: always()
-      uses: actions/download-artifact@v4
-      with:
-        name: latest-testng-report
-        path: downloaded-report
+          # TestNG report from current run output
+          $testngReport = Get-ChildItem -Path ./test-output -Filter *.html -Recurse -ErrorAction SilentlyContinue |
+                          Sort-Object LastWriteTime -Descending |
+                          Select-Object -First 1
+          if ($testngReport) {
+            Write-Host "Adding TestNG report from workflow run: $($testngReport.FullName)"
+            Copy-Item $testngReport.FullName latest-report/
+          } else {
+            Write-Warning "No TestNG report found in this run."
+          }
 
-    - name: Send Email with TestNG Report
-      if: always()
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.gmail.com
-        server_port: 587
-        username: ${{ secrets.EMAIL_USERNAME }}
-        password: ${{ secrets.EMAIL_PASSWORD }}
-        subject: Concepta Automation Report
-        to: ${{ secrets.EMAIL_TO }}
-        from: ${{ secrets.EMAIL_USERNAME }}
-        body: |
-          Hi Team,
+          # Extent report from current run output
+          $extentReport = Get-ChildItem -Path ./Reports -Filter *.html -Recurse -ErrorAction SilentlyContinue |
+                          Sort-Object LastWriteTime -Descending |
+                          Select-Object -First 1
+          if ($extentReport) {
+            Write-Host "Adding Extent report from workflow run: $($extentReport.FullName)"
+            Copy-Item $extentReport.FullName latest-report/
+          } else {
+            Write-Warning "No Extent report found in this run."
+          }
 
-          Please find attached the latest TestNG execution report.
+      # 6. Upload reports as artifacts
+      - name: Upload Test Reports as Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latest-test-reports
+          path: latest-report
 
-          Regards,  
-          Sagar Pawar
-        attachments: downloaded-report/*.html
+      # 7. Send email with attached reports
+      - name: Send Email with Test Reports
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Concepta Automation Test Execution Reports"
+          to: ${{ secrets.EMAIL_TO }}
+          from: "Automation Bot <${{ secrets.EMAIL_USERNAME }}>"
+          secure: true
+          attachments: latest-report/*.html
+          body: |
+            Hi Team,
+            
+            Please find attached the latest automation execution reports (TestNG & Extent).
+            
+            Regards,  
+            Aress Concepta Automation CI/CD
