@@ -117,7 +117,7 @@
     <!--  <class name="Tims.Barcode_Batches_Test_Cases.TC_16_Verify_Behavior_When_The_Count_Field_Contains_A_Value_Of_0"/>
       <class name="Tims.Barcode_Batches_Test_Cases.TC_01_Verify_The_Presence_Of_Create_Blood_Batch_Button_On_The_Barcode_Batches_Page"/>
       <class name="Tims.Barcode_Batches_Test_Cases.TC_01_DNA_Verify_The_Presence_Of_Create_DNA_Batch_Button"/>
-      <class name="Tims.Barcode_Batches_Test_Cases.TC_14_Verify_The_Form_Title_Is_Create_Blood_Batch"/> 
+      <class name="Tims.Barcode_Batches_Test_Cases.TC_14_Verify_The_Form_Title_Is_Create_Blood_Batch"/> -->
       
       <!-- SH Test-->
     <!--  <class name="Tims.SH_Test_Cases.TC_03_Verify_Test_Kit_Status_When_Only_Primary_Result_Is_Uploaded_SYPH_Not_Detected_HIV_Unconfirmed_Reactive"/>
