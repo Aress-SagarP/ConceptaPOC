@@ -31,16 +31,18 @@ jobs:
 
     - name: Prepare Latest TestNG Report
       if: always()
+      shell: pwsh
       run: |
-        $report = Get-ChildItem -Path test-output/ -Filter *.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        $report = Get-ChildItem -Path test-output -Filter *.html -Recurse | 
+                  Sort-Object LastWriteTime -Descending | 
+                  Select-Object -First 1
         if ($null -eq $report) {
-          Write-Error "No HTML report found in test-output/ folder."
+          Write-Error "No HTML report found in test-output folder."
           exit 1
         }
-        echo "Latest report: $($report.Name)"
+        Write-Host "Latest report: $($report.FullName)"
         mkdir latest-report
         Copy-Item $report.FullName -Destination latest-report/
-        shell: pwsh
 
     - name: Upload latest report artifact
       if: always()
