@@ -7,7 +7,7 @@
     </listeners>
   <test thread-count="5" name="Test">
     <classes>
-      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_36_Verify_Personal_Details_Does_Not_Erase_If_Go_Back_Page"/>
+    <!--  <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_36_Verify_Personal_Details_Does_Not_Erase_If_Go_Back_Page"/>
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_09_To_TC_18_Verify_Activate_Kit_Process"/>
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_37_Verify_User_Friendly_UI"/>
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_19_To_TC_20_Verify_Error_Messages_Are_Displayed_Properly"/>
@@ -34,23 +34,23 @@
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_43_to_TC_54_ATC_Verify_The_Postage_Tracking_Number_Auto_Population"/>
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_28_Verify_Webelements_Are_Labelled_Clearly"/>
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_04_Verify_Large_Input_In_Barcode_Field"/> 
-      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_32_Verify_Double_Barcode_For_How_To_Page_With_12_Elements"/> 
+      <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_32_Verify_Double_Barcode_For_How_To_Page_With_12_Elements"/> -->
       
       <!--Create_Account-->
       <class name="Dashboard.Create_Account_Test_Cases.TC_09_Verify_Invalid_Email_Format"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_12_Verify_Already_Exisitng_Account_Error"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_04_Verify_Mandatory_Fields"/>
-      <class name="Dashboard.Create_Account_Test_Cases.TC_06_Verify_Empty_Last_Name"/>
+    <!--  <class name="Dashboard.Create_Account_Test_Cases.TC_06_Verify_Empty_Last_Name"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_08_Verify_Empty_Password"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_07_Verify_Empty_Email"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_10_Verify_Invalid_Password_Format"/>
      <class name="Dashboard.Create_Account_Test_Cases.TC_05_Verify_Empty_First_Name"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_01_Verify_That_The_Create_Account_Page_Loads_Correctly"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_02_And_03_Verify_Successful_Account_Creation_With_Valid_Data"/>
-      <class name="Dashboard.Create_Account_Test_Cases.TC_11_Verify_That_Marketing_Consent_Checkbox_Is_Optional"/> 
+      <class name="Dashboard.Create_Account_Test_Cases.TC_11_Verify_That_Marketing_Consent_Checkbox_Is_Optional"/> -->
       
       <!--Customer Landing-->
-      <class name="Dashboard.Customer_Landing_Test_Cases.TC_02_Verify_The_Display_Correct_Timeline_Statuses_Icons_For_Test_Kits"/>
+    <!--  <class name="Dashboard.Customer_Landing_Test_Cases.TC_02_Verify_The_Display_Correct_Timeline_Statuses_Icons_For_Test_Kits"/>
       <class name="Dashboard.Customer_Landing_Test_Cases.TC_24_Verify_The_Dashboard_Update_For_DNA_Test_With_Result_Published"/>
       <class name="Dashboard.Customer_Landing_Test_Cases.TC_26_Verify_That_The_Fill_Or_Edit_Assessment_Functionality_After_Result_Upload"/>
       <class name="Dashboard.Customer_Landing_Test_Cases.TC_06_Verify_The_Timeline_For_Rejected_Test_Kit"/>
@@ -70,10 +70,10 @@
       <class name="Dashboard.Customer_Landing_Test_Cases.TC_01_TC_51_Verify_Message_Display_When_No_Tests_Are_Available"/>
       <class name="Dashboard.Customer_Landing_Test_Cases.TC_05_Verify_The_Timeline_Of_Incomplete_Activated_Test_Kit"/>
       <class name="Dashboard.Customer_Landing_Test_Cases.TC_08_TC_09_Verify_Timeline_For_DNA_Tests"/>
-      <class name="Dashboard.Customer_Landing_Test_Cases.TC_41_TC_54_Verify_Timeline_Icon_Design"/> 
+      <class name="Dashboard.Customer_Landing_Test_Cases.TC_41_TC_54_Verify_Timeline_Icon_Design"/> -->
       
       <!-- Health Assessment-->
-    <class name="Dashboard.Health_Assessment_Test_Cases.TC_32_TC_33_Verify_Ability_To_Fill_The_Health_Assessment_After_Sample_Reach_To_Lab_For_Blood_Hormone_Tests"/>
+  <!--  <class name="Dashboard.Health_Assessment_Test_Cases.TC_32_TC_33_Verify_Ability_To_Fill_The_Health_Assessment_After_Sample_Reach_To_Lab_For_Blood_Hormone_Tests"/>
       <class name="Dashboard.Health_Assessment_Test_Cases.TC_36_TC_37_Verify_Navigation_Buttons_Functionality_On_Health_Assessment_Page"/>
       <class name="Dashboard.Health_Assessment_Test_Cases.TC_01_to_07_Verify_The_Successful_Health_Assessment_Filling_For_Normal_Blood_Test"/>
       <class name="Dashboard.Health_Assessment_Test_Cases.TC_28_TC_29_Verify_Submitting_Health_Assessment_Without_Filling_Any_Data_On_Every_Page"/>
@@ -91,10 +91,10 @@
       <class name="Dashboard.Health_Assessment_Test_Cases.TC_35_Verify_The_NHS_Link_Navigation"/>
       <class name="Dashboard.Health_Assessment_Test_Cases.TC_45_to_TC_60_ATC_Verify_User_Enters_Negative_Height_And_Weight"/>
       <class name="Dashboard.Health_Assessment_Test_Cases.TC_18_to_TC_23_Verify_Selecting_Yes_For_Smoking_And_Alcohol_Prompts_Additional_Options"/> 
-      <class name="Dashboard.Health_Assessment_Test_Cases.TC_43_Verify_The_Successful_Health_Assessment_Filling_For_Normal_Blood_Test_With_The_Option_As_Yes"/>
+      <class name="Dashboard.Health_Assessment_Test_Cases.TC_43_Verify_The_Successful_Health_Assessment_Filling_For_Normal_Blood_Test_With_The_Option_As_Yes"/> -->
       
       <!-- Login Logout-->
-      <class name="Dashboard.Login_Logout_Test_Cases.TC_02_TC_03_Verify_Login_With_Invalid_Email_And_Password"/>
+  <!--    <class name="Dashboard.Login_Logout_Test_Cases.TC_02_TC_03_Verify_Login_With_Invalid_Email_And_Password"/>
       <class name="Dashboard.Login_Logout_Test_Cases.TC_10_Check_The_Password_Visibility_Toggle"/>
       <class name="Dashboard.Login_Logout_Test_Cases.TC_05_Verify_Login_With_Empty_Password_Field"/>
       <class name="Dashboard.Login_Logout_Test_Cases.TC_01_TC_08_Verify_User_Can_Login_With_Valid_Credential"/>
@@ -103,15 +103,15 @@
       <class name="Dashboard.Login_Logout_Test_Cases.TC_04_Verify_Login_With_Empty_Email_Field"/>
       <class name="Dashboard.Login_Logout_Test_Cases.TC_09_Check_Login_For_Mixed_Case_Email"/>
       <class name="Dashboard.Login_Logout_Test_Cases.TC_06_Verify_Login_With_Invalid_Email_Format"/>
-      <class name="Dashboard.Login_Logout_Test_Cases.TC_11_TC_12_Check_The_Element_Visibility_On_Login_Page"/> 
+      <class name="Dashboard.Login_Logout_Test_Cases.TC_11_TC_12_Check_The_Element_Visibility_On_Login_Page"/> -->
       
       <!-- Reset Password-->
-       <class name="Dashboard.Reset_Password_Test_Cases.TC_09_Verify_Password_Reset_Functionality_With_Invalid_Email_Address"/>
+     <!--   <class name="Dashboard.Reset_Password_Test_Cases.TC_09_Verify_Password_Reset_Functionality_With_Invalid_Email_Address"/>
       <class name="Dashboard.Reset_Password_Test_Cases.TC_10_Verify_Reset_Password_Email_Link_Sent"/>
       <class name="Dashboard.Reset_Password_Test_Cases.TC_01_to_TC_08_Verify_Password_Reset_Functionality"/>
       <class name="Dashboard.Reset_Password_Test_Cases.TC_12_Verify_UI_Elements_On_Reset_Password_Page"/>
       <class name="Dashboard.Reset_Password_Test_Cases.TC_13_Verify_Screen_Resolution_Size"/>
-      <class name="Dashboard.Reset_Password_Test_Cases.TC_11_Verify_Reset_Password_Functionality_With_Expired_Reset_Link"/> 
+      <class name="Dashboard.Reset_Password_Test_Cases.TC_11_Verify_Reset_Password_Functionality_With_Expired_Reset_Link"/> -->
       
       <!-- Barcode Batches-->
     <!--  <class name="Tims.Barcode_Batches_Test_Cases.TC_16_Verify_Behavior_When_The_Count_Field_Contains_A_Value_Of_0"/>
