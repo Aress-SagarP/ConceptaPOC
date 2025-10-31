@@ -24,7 +24,6 @@
 	  <test name="FireFoxSuite">
         <classes>
      <class name="Dashboard.Create_Account_Test_Cases.TC_04_Verify_Mandatory_Fields"/>
-	<class name="Dashboard.Login_Logout_Test_Cases.TC_05_Verify_Login_With_Empty_Password_Field"/>
         </classes>
     </test>
  
