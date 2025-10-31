@@ -1,7 +1,10 @@
 name:  Multi-Browser CI with Matrix Strategy
 
 on:
-  # Manual trigger only (safe for demo)
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
