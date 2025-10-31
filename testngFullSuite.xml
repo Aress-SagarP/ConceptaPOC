@@ -5,7 +5,29 @@
   <listeners>
 		<listener class-name="initializer.ExtentTestNGListener" />
     </listeners>
-  <test thread-count="5" name="Test">
+
+	<test name="ChromeSuite">       
+        <classes>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_09_Verify_Invalid_Email_Format"/>
+      <class name="Dashboard.Create_Account_Test_Cases.TC_07_Verify_Empty_Email"/>
+        </classes>
+    </test>
+
+    <test name="EdgeSuite">       
+        <classes>
+     <class name="Dashboard.Create_Account_Test_Cases.TC_06_Verify_Empty_Last_Name"/>
+     <class name="Dashboard.Create_Account_Test_Cases.TC_08_Verify_Empty_Password"/>
+        </classes>
+    </test>
+  
+
+	  <test name="FireFoxSuite">
+        <classes>
+     <class name="Dashboard.Create_Account_Test_Cases.TC_04_Verify_Mandatory_Fields"/>
+        </classes>
+    </test>
+ 
+	<test thread-count="5" name="Test">
     <classes>
     <!--  <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_36_Verify_Personal_Details_Does_Not_Erase_If_Go_Back_Page"/>
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_09_To_TC_18_Verify_Activate_Kit_Process"/>
@@ -37,12 +59,12 @@
       <class name="Dashboard.Activate_Test_Kit_Test_Cases.TC_32_Verify_Double_Barcode_For_How_To_Page_With_12_Elements"/> -->
       
       <!--Create_Account-->
-      <class name="Dashboard.Create_Account_Test_Cases.TC_09_Verify_Invalid_Email_Format"/>
+    <!--  <class name="Dashboard.Create_Account_Test_Cases.TC_09_Verify_Invalid_Email_Format"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_07_Verify_Empty_Email"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_04_Verify_Mandatory_Fields"/>
      <class name="Dashboard.Create_Account_Test_Cases.TC_06_Verify_Empty_Last_Name"/>
      <class name="Dashboard.Create_Account_Test_Cases.TC_08_Verify_Empty_Password"/>
-    <!-- <class name="Dashboard.Create_Account_Test_Cases.TC_12_Verify_Already_Exisitng_Account_Error"/>
+     <class name="Dashboard.Create_Account_Test_Cases.TC_12_Verify_Already_Exisitng_Account_Error"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_10_Verify_Invalid_Password_Format"/>
      <class name="Dashboard.Create_Account_Test_Cases.TC_05_Verify_Empty_First_Name"/>
       <class name="Dashboard.Create_Account_Test_Cases.TC_01_Verify_That_The_Create_Account_Page_Loads_Correctly"/>
